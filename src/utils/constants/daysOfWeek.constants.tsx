@@ -1,5 +1,4 @@
 import {
-  FileCheck,
   LetterD,
   LetterJ,
   LetterL,

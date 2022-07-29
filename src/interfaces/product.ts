@@ -2,13 +2,14 @@ export interface Product {
   id: number;
   name: string;
   description: string;
-  price: number;
+  price: string;
   portions: Portion[];
+  portionsTagGroups: TagGroup[];
   tags: any[];
   image: string;
   categories: Category[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Category {
@@ -19,15 +20,15 @@ export interface Category {
 }
 
 export interface Portion {
-  id: number;
+  id: number | string;
   name: string;
   price: number;
-  tagGroups: TagGroup[];
 }
 
 export interface TagGroup {
-  id: number;
+  id: number | string;
   name: string;
+  portions: number[];
   max: number;
   min: number;
   hidden: boolean;
@@ -35,7 +36,7 @@ export interface TagGroup {
 }
 
 export interface Tag {
-  id: number;
+  id: number | string;
   name: string;
   value: string;
   price: number;

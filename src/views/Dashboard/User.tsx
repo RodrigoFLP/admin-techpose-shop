@@ -41,10 +41,10 @@ export function User() {
         <Group>
           <Box sx={{ flex: 1 }}>
             <Text size="sm" weight={500}>
-              Amy Horsefighter
+              Nombre
             </Text>
             <Text color="dimmed" size="xs">
-              ahorsefighter@gmail.com
+              admin@gmail.com
             </Text>
           </Box>
 

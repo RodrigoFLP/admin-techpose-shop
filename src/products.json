@@ -1,0 +1,578 @@
+[
+	{
+		"id": 2,
+		"name": "Tacos alambrito",
+		"description": "Esto es tacos alambritos",
+		"price": "4.9900",
+		"portions": [
+			{
+				"id": 1,
+				"name": "3 Tacos",
+				"price": 4.99,
+				"tagGroups": [
+					{
+						"id": 2,
+						"max": 5,
+						"min": 0,
+						"name": "complementos",
+						"tags": [
+							{
+								"id": 1,
+								"name": "complementos",
+								"price": 0.2,
+								"ratio": 0,
+								"value": "salsa verde"
+							},
+							{
+								"id": 2,
+								"name": "complementos",
+								"price": 0.25,
+								"ratio": 0,
+								"value": "salsa roja"
+							},
+							{
+								"id": 3,
+								"name": "complementos",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "queso"
+							}
+						],
+						"hidden": false
+					}
+				]
+			},
+			{
+				"id": 2,
+				"name": "4 Tacos",
+				"price": 5.99,
+				"tagGroups": [
+					{
+						"id": 1,
+						"max": 3,
+						"min": 0,
+						"name": "complementos",
+						"tags": [
+							{
+								"id": 1,
+								"name": "complementos",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "cebolla"
+							},
+							{
+								"id": 2,
+								"name": "complementos",
+								"price": 0.3,
+								"ratio": 0,
+								"value": "lechuga"
+							},
+							{
+								"id": 3,
+								"name": "complementos",
+								"price": 0.2,
+								"ratio": 0,
+								"value": "Pimienta"
+							}
+						],
+						"hidden": false
+					}
+				]
+			}
+		],
+		"portionsTagGroups": [
+            {
+                "id": 2,
+                "portions" : [1],
+                "max": 5,
+                "min": 0,
+                "name": "complementos",
+                "tags": [
+                    {
+                        "id": 1,
+                        "name": "complementos",
+                        "price": 0.2,
+                        "ratio": 0,
+                        "value": "salsa verde"
+                    },
+                    {
+                        "id": 2,
+                        "name": "complementos",
+                        "price": 0.25,
+                        "ratio": 0,
+                        "value": "salsa roja"
+                    },
+                    {
+                        "id": 3,
+                        "name": "complementos",
+                        "price": 0.5,
+                        "ratio": 0,
+                        "value": "queso"
+                    }
+                ],
+                "hidden": false
+            },
+            {
+                "id": 1,
+                "portions": [2],
+                "max": 3,
+                "min": 0,
+                "name": "complementos",
+                "tags": [
+                    {
+                        "id": 1,
+                        "name": "complementos",
+                        "price": 0.5,
+                        "ratio": 0,
+                        "value": "cebolla"
+                    },
+                    {
+                        "id": 2,
+                        "name": "complementos",
+                        "price": 0.3,
+                        "ratio": 0,
+                        "value": "lechuga"
+                    },
+                    {
+                        "id": 3,
+                        "name": "complementos",
+                        "price": 0.2,
+                        "ratio": 0,
+                        "value": "Pimienta"
+                    }
+                ],
+                "hidden": false
+            }
+        ],
+		"tags": [
+			{
+				"id": 2,
+				"name": "pastor",
+				"price": 4,
+				"ratio": 0,
+				"value": "proteina"
+			}
+		],
+		"image": "http://dummyimage.com/892x606.png/cc0000/ffffff",
+		"createdAt": "2022-05-22T22:02:00.293Z",
+		"updatedAt": "2022-05-22T22:02:00.293Z",
+		"categories": [
+			{
+				"id": 2,
+				"name": "Tacos",
+				"description": "Esta es la descripción de los tacos",
+				"image": "http://dummyimage.com/742x587.png/cc0000/ffffff"
+			}
+		]
+	},
+	{
+		"id": 3,
+		"name": "Tacos de camarón",
+		"description": "Estos son tacos de camarón",
+		"price": "6.9900",
+		"portions": [
+			{
+				"id": 1,
+				"name": "3 Tacos",
+				"price": 6.99,
+				"tagGroups": [
+					{
+						"id": 2,
+						"max": 5,
+						"min": 0,
+						"name": "complementos",
+						"tags": [
+							{
+								"id": 1,
+								"name": "complementos",
+								"price": 0.2,
+								"ratio": 0,
+								"value": "salsa verde"
+							},
+							{
+								"id": 2,
+								"name": "complementos",
+								"price": 0.25,
+								"ratio": 0,
+								"value": "salsa roja"
+							},
+							{
+								"id": 3,
+								"name": "complementos",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "queso"
+							}
+						],
+						"hidden": false
+					}
+				]
+			},
+			{
+				"id": 2,
+				"name": "4 Tacos",
+				"price": 7.99,
+				"tagGroups": [
+					{
+						"id": 1,
+						"max": 3,
+						"min": 0,
+						"name": "complementos",
+						"tags": [
+							{
+								"id": 1,
+								"name": "complementos",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "cebolla"
+							},
+							{
+								"id": 2,
+								"name": "complementos",
+								"price": 0.3,
+								"ratio": 0,
+								"value": "lechuga"
+							},
+							{
+								"id": 3,
+								"name": "complementos",
+								"price": 0.2,
+								"ratio": 0,
+								"value": "Pimienta"
+							}
+						],
+						"hidden": false
+					}
+				]
+			}
+		],
+		"portionsTagGroups": null,
+		"tags": [],
+		"image": "http://dummyimage.com/614x287.png/ff4444/ffffff",
+		"createdAt": "2022-05-22T22:02:13.626Z",
+		"updatedAt": "2022-05-22T22:02:13.626Z",
+		"categories": [
+			{
+				"id": 2,
+				"name": "Tacos",
+				"description": "Esta es la descripción de los tacos",
+				"image": "http://dummyimage.com/742x587.png/cc0000/ffffff"
+			}
+		]
+	},
+	{
+		"id": 4,
+		"name": "Enchiladitas",
+		"description": "Esta es la descripción de las enchiladitas",
+		"price": "1.9900",
+		"portions": [
+			{
+				"id": 1,
+				"name": "Enchiladitas",
+				"price": 1.99,
+				"tagGroups": []
+			}
+		],
+		"portionsTagGroups": null,
+		"tags": [],
+		"image": "http://dummyimage.com/129x405.png/cc0000/ffffff",
+		"createdAt": "2022-05-22T22:02:25.307Z",
+		"updatedAt": "2022-05-22T22:02:25.307Z",
+		"categories": [
+			{
+				"id": 1,
+				"name": "Entradas",
+				"description": "Esta es la descripción de las entradas",
+				"image": "http://dummyimage.com/464x550.png/cc0000/ffffff"
+			}
+		]
+	},
+	{
+		"id": 5,
+		"name": "Nachos",
+		"description": "Esta es la descripción de los nachos",
+		"price": "1.9900",
+		"portions": [
+			{
+				"id": 1,
+				"name": "Nachos",
+				"price": 1.99,
+				"tagGroups": []
+			}
+		],
+		"portionsTagGroups": null,
+		"tags": [],
+		"image": "http://dummyimage.com/129x405.png/cc0000/ffffff",
+		"createdAt": "2022-05-22T22:02:39.528Z",
+		"updatedAt": "2022-05-22T22:02:39.528Z",
+		"categories": [
+			{
+				"id": 1,
+				"name": "Entradas",
+				"description": "Esta es la descripción de las entradas",
+				"image": "http://dummyimage.com/464x550.png/cc0000/ffffff"
+			}
+		]
+	},
+	{
+		"id": 6,
+		"name": "Garnachas",
+		"description": "Esta es la descripción de las garnachas",
+		"price": "1.9900",
+		"portions": [
+			{
+				"id": 1,
+				"name": "Garnachas",
+				"price": 2.25,
+				"tagGroups": []
+			}
+		],
+		"portionsTagGroups": null,
+		"tags": [],
+		"image": "http://dummyimage.com/736x399.png/dddddd/000000",
+		"createdAt": "2022-05-22T22:02:46.998Z",
+		"updatedAt": "2022-05-22T22:02:46.998Z",
+		"categories": [
+			{
+				"id": 1,
+				"name": "Entradas",
+				"description": "Esta es la descripción de las entradas",
+				"image": "http://dummyimage.com/464x550.png/cc0000/ffffff"
+			}
+		]
+	},
+	{
+		"id": 7,
+		"name": "Torta hawuaiana",
+		"description": "Esta es la descripción de la torta hawaiana",
+		"price": "4.8000",
+		"portions": [
+			{
+				"id": 1,
+				"name": "Mediana",
+				"price": 2.25,
+				"tagGroups": [
+					{
+						"id": 1,
+						"max": 6,
+						"min": 0,
+						"name": "complementos",
+						"tags": [
+							{
+								"id": 1,
+								"name": "complementos",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "cebolla"
+							},
+							{
+								"id": 2,
+								"name": "complementos",
+								"price": 0.25,
+								"ratio": 0,
+								"value": "piña"
+							},
+							{
+								"id": 3,
+								"name": "complementos",
+								"price": 0.2,
+								"ratio": 0,
+								"value": "Pimienta"
+							}
+						],
+						"hidden": false
+					}
+				]
+			}
+		],
+		"portionsTagGroups": null,
+		"tags": [],
+		"image": "http://dummyimage.com/989x397.png/ff4444/ffffff",
+		"createdAt": "2022-05-22T22:02:57.193Z",
+		"updatedAt": "2022-05-22T22:02:57.193Z",
+		"categories": [
+			{
+				"id": 3,
+				"name": "Tortas",
+				"description": "Esta es la descripción de las tortas",
+				"image": "http://dummyimage.com/660x231.png/cc0000/ffffff"
+			}
+		]
+	},
+	{
+		"id": 8,
+		"name": "Torta ahogada",
+		"description": "Esta es la descripción de la torta ahogada",
+		"price": "4.9900",
+		"portions": [
+			{
+				"id": 1,
+				"name": "Normal",
+				"price": 4.99,
+				"tagGroups": [
+					{
+						"id": 1,
+						"max": 1,
+						"min": 1,
+						"name": "proteína",
+						"tags": [
+							{
+								"id": 1,
+								"name": "proteína",
+								"price": 0,
+								"ratio": 0,
+								"value": "res"
+							},
+							{
+								"id": 2,
+								"name": "proteína",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "pollo"
+							},
+							{
+								"id": 3,
+								"name": "proteína",
+								"price": 0.75,
+								"ratio": 0,
+								"value": "cerdo"
+							}
+						],
+						"hidden": false
+					},
+					{
+						"id": 1,
+						"max": 6,
+						"min": 0,
+						"name": "complementos",
+						"tags": [
+							{
+								"id": 1,
+								"name": "complementos",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "cebolla"
+							},
+							{
+								"id": 2,
+								"name": "complementos",
+								"price": 0.25,
+								"ratio": 0,
+								"value": "piña"
+							},
+							{
+								"id": 3,
+								"name": "complementos",
+								"price": 0.2,
+								"ratio": 0,
+								"value": "Pimienta"
+							}
+						],
+						"hidden": false
+					}
+				]
+			}
+		],
+		"portionsTagGroups": null,
+		"tags": [],
+		"image": "http://dummyimage.com/431x591.png/cc0000/ffffff",
+		"createdAt": "2022-05-22T22:03:10.975Z",
+		"updatedAt": "2022-05-22T22:03:10.975Z",
+		"categories": [
+			{
+				"id": 3,
+				"name": "Tortas",
+				"description": "Esta es la descripción de las tortas",
+				"image": "http://dummyimage.com/660x231.png/cc0000/ffffff"
+			}
+		]
+	},
+	{
+		"id": 9,
+		"name": "Torta tradicional",
+		"description": "Esta es la descripción de la torta tradicional",
+		"price": "3.9900",
+		"portions": [
+			{
+				"id": 1,
+				"name": "Normal",
+				"price": 4.99,
+				"tagGroups": [
+					{
+						"id": 1,
+						"max": 1,
+						"min": 1,
+						"name": "proteína",
+						"tags": [
+							{
+								"id": 1,
+								"name": "proteína",
+								"price": 0,
+								"ratio": 0,
+								"value": "res"
+							},
+							{
+								"id": 2,
+								"name": "proteína",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "pollo"
+							},
+							{
+								"id": 3,
+								"name": "proteína",
+								"price": 0.75,
+								"ratio": 0,
+								"value": "cerdo"
+							}
+						],
+						"hidden": false
+					},
+					{
+						"id": 1,
+						"max": 6,
+						"min": 0,
+						"name": "complementos",
+						"tags": [
+							{
+								"id": 1,
+								"name": "complementos",
+								"price": 0.5,
+								"ratio": 0,
+								"value": "cebolla"
+							},
+							{
+								"id": 2,
+								"name": "complementos",
+								"price": 0.25,
+								"ratio": 0,
+								"value": "piña"
+							},
+							{
+								"id": 3,
+								"name": "complementos",
+								"price": 0.2,
+								"ratio": 0,
+								"value": "Pimienta"
+							}
+						],
+						"hidden": false
+					}
+				]
+			}
+		],
+		"portionsTagGroups": null,
+		"tags": [],
+		"image": "http://dummyimage.com/976x544.png/cc0000/ffffff",
+		"createdAt": "2022-05-22T22:03:21.423Z",
+		"updatedAt": "2022-05-22T22:03:21.423Z",
+		"categories": [
+			{
+				"id": 3,
+				"name": "Tortas",
+				"description": "Esta es la descripción de las tortas",
+				"image": "http://dummyimage.com/660x231.png/cc0000/ffffff"
+			}
+		]
+	}
+]

@@ -8,14 +8,23 @@ import { schedules } from "../mocks/schedules";
 import { useEffect, useState } from "react";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import { Check } from "tabler-icons-react";
+import { useGetAllQuery } from "../services/schedules";
 
-const useSchedule = (): [
-  (Schedule & ScheduleStatus)[] | null,
-  (scheduleItem: NewSchedulePayload) => void,
-  (scheduleUpdate: UpdateSchedulePayload) => void,
-  (id: number) => void,
-  () => void
-] => {
+const useSchedule = () => {
+  const { data: schedules, isSuccess } = useGetAllQuery();
+
+  useEffect(() => {
+    if (isSuccess)
+      setScheduleState(
+        schedules.map((item) => ({
+          ...item,
+          create: false,
+          update: false,
+          delete: false,
+        }))
+      );
+  }, [isSuccess]);
+
   const [scheduleState, setScheduleState] = useState<
     (Schedule & ScheduleStatus)[] | null
   >(null);
@@ -30,6 +39,7 @@ const useSchedule = (): [
               dayOfWeek: day,
               openTime: scheduleItem.openTime,
               closeTime: scheduleItem.closeTime,
+              isActive: scheduleItem.isActive,
               create: true,
               update: false,
               delete: false,
@@ -47,6 +57,7 @@ const useSchedule = (): [
 
       const isNewItem = prev.find((item) => item.id === id)?.create;
 
+      //if the item is already persisted, set delete to true, otherwise, delete directly from local state
       if (!isNewItem) {
         return prev.map((item) =>
           item.id === id ? { ...item, update: false, delete: true } : item
@@ -66,6 +77,9 @@ const useSchedule = (): [
         (item) => item.id === scheduleUpdate.id
       )?.create;
 
+      console.log(scheduleUpdate.isActive);
+
+      //if the item is already persisted, set update to true, otherwise, it preserves only create to true
       if (!isNewItem) {
         return prev.map((item) =>
           item.id === scheduleUpdate.id
@@ -74,6 +88,10 @@ const useSchedule = (): [
                 update: true,
                 delete: false,
                 create: false,
+                isActive:
+                  scheduleUpdate.isActive !== undefined
+                    ? scheduleUpdate.isActive
+                    : item.isActive,
                 openTime: scheduleUpdate.openTime
                   ? scheduleUpdate.openTime
                   : item.openTime,
@@ -91,6 +109,10 @@ const useSchedule = (): [
               update: false,
               delete: false,
               create: true,
+              isActive:
+                scheduleUpdate.isActive !== undefined
+                  ? scheduleUpdate.isActive
+                  : item.isActive,
               openTime: scheduleUpdate.openTime
                 ? scheduleUpdate.openTime
                 : item.openTime,
@@ -105,6 +127,8 @@ const useSchedule = (): [
 
   const onSaveSchedule = () => {
     //TODO: implement schedule mutation
+
+    console.log(scheduleState);
 
     showNotification({
       id: "load-data",
@@ -127,26 +151,13 @@ const useSchedule = (): [
     }, 1000);
   };
 
-  useEffect(() => {
-    //TODO: api call to retrieve schedule
-    const result = schedules;
-    setScheduleState(
-      schedules.map((item) => ({
-        ...item,
-        create: false,
-        update: false,
-        delete: false,
-      }))
-    );
-  }, []);
-
   return [
     scheduleState,
     addScheduleItems,
     updateScheduleItem,
     deleteScheduleItem,
     onSaveSchedule,
-  ];
+  ] as const;
 };
 
 export default useSchedule;

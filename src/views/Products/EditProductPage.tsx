@@ -2,42 +2,79 @@ import {
   ActionIcon,
   Button,
   Card,
-  Container,
   Grid,
   Group,
-  Input,
+  Image,
   Modal,
-  Select,
-  Tabs,
+  Stack,
   Text,
-  Textarea,
-  TextInput,
-  Title,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, At, FileCheck, Plus } from "tabler-icons-react";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowLeft, FileCheck } from "tabler-icons-react";
 import LayourInnerDashboard from "../../components/layouts/LayoutInnerDashboard";
-import { mockProduct } from "../../mocks/product";
-import PortionCard from "./PortionCard";
-import PortionForm from "./PortionForm";
+
+import PortionForm from "./forms/PortionForm";
 import PortionSection from "./PortionsSection";
 import TagsSection from "./TagsSection";
+import TagGroupsForm from "./forms/TagGroupsForm";
+import useEditProduct from "../../hooks/useEditProduct";
+
+import { uploadImage } from "../../utils/uploadImage";
+import ProductForm from "./forms/ProductsForm";
+import Loading from "../../components/Loading";
+import ImageDropzone from "../../components/ImageDropzone";
 
 const EditProductPage = () => {
-  const product = mockProduct;
   const largeScreen = useMediaQuery("(min-width: 900px)");
 
-  const [showPortionModal, setShowPortionModal] = useState(false);
+  const [image, setImage] = useState<null | File>(null);
 
-  const openPortionModal = () => {
-    setShowPortionModal(true);
+  const handleSubmit = async () => {
+    //show toast
+
+    try {
+      if (image) {
+        const imageSrc = await uploadImage(image);
+      }
+    } catch (error) {
+      //update toast with error
+    }
   };
+
+  const location = useLocation();
+  const id = location.pathname.split("/")[3];
+
+  const [
+    productState,
+    isLoading,
+    isError,
+    showPortionModal,
+    openPortionModal,
+    closePortionModal,
+    portionToEdit,
+    onSavePortion,
+    onDeletePortion,
+    showTagGroup,
+    openTagGroupModal,
+    closeTagGroupModal,
+    tagGroupToEdit,
+    onSaveTagGroup,
+    onDeleteTagGroup,
+  ] = useEditProduct(id);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <div>"Error"</div>;
+  }
 
   return (
     <LayourInnerDashboard
-      title="Editar producto #232"
+      title={`Editar producto #${id}`}
       leftAction={
         <Link to="/dashboard/productos">
           <ActionIcon>
@@ -46,45 +83,75 @@ const EditProductPage = () => {
         </Link>
       }
     >
-      <form>
-        <Grid columns={24} gutter="xl">
-          <Grid.Col span={largeScreen ? 12 : 24}>
-            <TextInput mt={"xs"} label="Título" placeholder="Título" />
-            <Textarea mt={"xs"} label="Descripción" placeholder="Descripción" />
-            <Select
-              mt={"xs"}
-              label="Categoría"
-              placeholder="Pick one"
-              data={[
-                { value: "entradas", label: "Entradas" },
-                { value: "tacos", label: "Tacos" },
-                { value: "tortas", label: "Tortas" },
-                { value: "bebidas", label: "Bebidas" },
-              ]}
+      {productState && (
+        <>
+          <Grid columns={24} gutter="xl">
+            <Grid.Col span={largeScreen ? 12 : 24}>
+              <ProductForm
+                initialValues={{
+                  title: productState.name,
+                  description: productState.description,
+                  category: productState.categories[0].name,
+                }}
+              />
+              <Stack>
+                <Text mt="md" weight="bold" size="sm">
+                  Imagen
+                </Text>
+                <Group>
+                  <ImageDropzone onChange={setImage} image={image} />
+                </Group>
+              </Stack>
+            </Grid.Col>
+            <Grid.Col span={largeScreen ? 12 : 24}>
+              <PortionSection
+                openModal={openPortionModal}
+                portions={productState.portions}
+              />
+              <TagsSection
+                tagGroups={productState.portionsTagGroups}
+                openModal={openTagGroupModal}
+              />
+            </Grid.Col>
+          </Grid>
+
+          <Button
+            leftIcon={<FileCheck size={16} />}
+            mt="xl"
+            onClick={() => image && uploadImage(image)}
+          >
+            Guardar
+          </Button>
+
+          <Modal
+            opened={showPortionModal}
+            onClose={closePortionModal}
+            title="Porción"
+          >
+            <PortionForm
+              portion={portionToEdit}
+              onSave={onSavePortion}
+              onDelete={onDeletePortion}
             />
-          </Grid.Col>
-          <Grid.Col span={largeScreen ? 12 : 24}>
-            <PortionSection
-              openModal={() => {
-                openPortionModal();
-              }}
+          </Modal>
+          <Modal
+            opened={showTagGroup}
+            onClose={closeTagGroupModal}
+            title="Grupo de tags"
+          >
+            <MemoizedTForm
+              portions={productState.portions}
+              tagGroup={tagGroupToEdit}
+              onSave={onSaveTagGroup}
+              onDelete={onDeleteTagGroup}
             />
-            <TagsSection />
-          </Grid.Col>
-        </Grid>
-      </form>
-      <Button leftIcon={<FileCheck size={16} />} mt="xl">
-        Guardar
-      </Button>
-      <Modal
-        opened={showPortionModal}
-        onClose={() => setShowPortionModal(false)}
-        title="Introduce yourself!"
-      >
-        <PortionForm />
-      </Modal>
+          </Modal>
+        </>
+      )}
     </LayourInnerDashboard>
   );
 };
+
+const MemoizedTForm = React.memo(TagGroupsForm);
 
 export default EditProductPage;

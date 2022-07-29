@@ -1,19 +1,11 @@
-import {
-  AppShell,
-  Burger,
-  Header,
-  MediaQuery,
-  ScrollArea,
-  Text,
-  useMantineTheme,
-} from "@mantine/core";
+import { AppShell, Burger, Header, ScrollArea, Text } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { FC, useState } from "react";
-import { Outlet, useLocation, useResolvedPath } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import DashboardNavbar from "./Navbar";
 
 const DashboardPage: FC = () => {
-  const [isNavbarOpen, toggleIsNavBarOpen] = useState(false);
+  const [isNavbarOpen, toggleIsNavBarOpen] = useState(true);
   const largeScreen = useMediaQuery("(min-width: 800px)");
 
   return (

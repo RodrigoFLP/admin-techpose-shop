@@ -11,6 +11,8 @@ import {
   Api,
   Users,
   Icon,
+  InfoCircle,
+  Home,
 } from "tabler-icons-react";
 import {
   ThemeIcon,
@@ -77,7 +79,7 @@ interface Data {
 
 const data: Data[] = [
   {
-    icon: <GitPullRequest size={16} />,
+    icon: <Home size={16} />,
     color: "blue",
     label: "Inicio",
     path: "/dashboard",
@@ -103,6 +105,12 @@ const data: Data[] = [
 ];
 
 const configData: Data[] = [
+  {
+    icon: <InfoCircle size={16} />,
+    color: "lime",
+    label: "Página",
+    path: "/dashboard/pagina",
+  },
   {
     icon: <ShoppingCart size={16} />,
     color: "violet",

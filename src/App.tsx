@@ -17,37 +17,51 @@ import OrdersConfigPage from "./views/OrdersConfig/OrdersConfigPage";
 import UsersPage from "./views/Users/UsersPage";
 import ApiPage from "./views/Api/ApiPage";
 import { NotificationsProvider } from "@mantine/notifications";
+import PageConfigPage from "./views/PageConfig/PageConfig";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import ProtectedRoute from "./ProtectedRoute";
+import EditCategoriesPage from "./views/Categories/EditCategoryPage";
 
 function App() {
   return (
-    <MantineProvider
-      theme={{ colorScheme: "light" }}
-      withGlobalStyles
-      withNormalizeCSS
-    >
-      <NotificationsProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/onboarding" element={<OnBoardingPage />} />
-            <Route path="dashboard" element={<DashboardPage />}>
-              <Route index element={<HomePage />} />
-              <Route path="productos" element={<ProductsPage />} />
-              <Route path="productos/:id" element={<EditProductPage />} />
-              <Route path="categorias" element={<CategoriesPage />} />
-              <Route path="horario" element={<SchedulePage />} />
-              <Route path="areas" element={<AreasPage />} />
-              <Route path="ordenes" element={<OrdersPage />} />
-              <Route path="wompi" element={<WompiPage />} />
-              <Route path="clientes" element={<ClientsPage />} />
-              <Route path="pedidos" element={<OrdersConfigPage />} />
-              <Route path="usuarios" element={<UsersPage />} />
-              <Route path="api" element={<ApiPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </NotificationsProvider>
-    </MantineProvider>
+    <Provider store={store}>
+      <MantineProvider
+        theme={{ colorScheme: "light" }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
+        <NotificationsProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/onboarding" element={<OnBoardingPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="dashboard" element={<DashboardPage />}>
+                  <Route index element={<HomePage />} />
+                  <Route path="pagina" element={<PageConfigPage />} />
+                  <Route path="productos" element={<ProductsPage />} />
+                  <Route path="productos/:id" element={<EditProductPage />} />
+                  <Route path="categorias" element={<CategoriesPage />} />
+                  <Route
+                    path="categorias/:id"
+                    element={<EditCategoriesPage />}
+                  />
+                  <Route path="horario" element={<SchedulePage />} />
+                  <Route path="areas" element={<AreasPage />} />
+                  <Route path="ordenes" element={<OrdersPage />} />
+                  <Route path="wompi" element={<WompiPage />} />
+                  <Route path="clientes" element={<ClientsPage />} />
+                  <Route path="pedidos" element={<OrdersConfigPage />} />
+                  <Route path="usuarios" element={<UsersPage />} />
+                  <Route path="api" element={<ApiPage />} />
+                </Route>
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </NotificationsProvider>
+      </MantineProvider>
+    </Provider>
   );
 }
 

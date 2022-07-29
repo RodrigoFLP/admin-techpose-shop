@@ -1,6 +1,7 @@
 export interface Schedule {
   id: number;
   dayOfWeek: number;
+  isActive: boolean;
   openTime: Date | string;
   closeTime: Date | string;
 }
@@ -18,6 +19,7 @@ export type NewSchedulePayload = Omit<
 
 export interface UpdateSchedulePayload {
   id: number;
+  isActive?: boolean;
   openTime?: Date | string;
   closeTime?: Date | string;
 }
