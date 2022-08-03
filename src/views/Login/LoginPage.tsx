@@ -29,7 +29,9 @@ const LoginPage = () => {
   const handleSubmit = async (values: typeof form.values) => {
     try {
       await login({ username: values.email, password: values.password });
-      navigate("/dashboard", { replace: true });
+      console.log("se loguea");
+      navigate("/", { replace: true });
+      navigate(0);
     } catch (err) {}
   };
 

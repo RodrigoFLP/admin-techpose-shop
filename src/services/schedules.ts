@@ -5,7 +5,7 @@ import { Ticket } from "../interfaces/ticket";
 export const schedules = createApi({
   reducerPath: "schedules",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.10:5000/schedules`,
+    baseUrl: `http://192.168.0.17:5000/schedules`,
     credentials: "include",
   }),
   endpoints: (builder) => ({

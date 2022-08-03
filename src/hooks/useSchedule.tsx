@@ -11,7 +11,14 @@ import { Check } from "tabler-icons-react";
 import { useGetAllQuery } from "../services/schedules";
 
 const useSchedule = () => {
-  const { data: schedules, isSuccess } = useGetAllQuery();
+  const {
+    data: schedules,
+    isSuccess,
+    isLoading: isScheduleLoading,
+    isUninitialized: isScheduleUnitialized,
+  } = useGetAllQuery();
+
+  const isLoading = isScheduleLoading || isScheduleUnitialized;
 
   useEffect(() => {
     if (isSuccess)
@@ -157,6 +164,7 @@ const useSchedule = () => {
     updateScheduleItem,
     deleteScheduleItem,
     onSaveSchedule,
+    isLoading,
   ] as const;
 };
 

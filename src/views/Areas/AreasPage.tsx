@@ -36,6 +36,8 @@ import { useEffect, useState } from "react";
 import { mockAreas } from "../../mocks/areas";
 import { Area, newArea } from "../../interfaces/area";
 import { showNotification, updateNotification } from "@mantine/notifications";
+import { useGetAllQuery } from "../../services/areas";
+import Loading from "../../components/Loading";
 
 const purpleOptions = { color: "blue" };
 
@@ -98,6 +100,7 @@ function LocationMarker({ areas, newArea, addCoordinate }: MarkerProps) {
       {areas &&
         areas.map((area) => (
           <Polygon
+            key={area.id}
             pathOptions={{ color: "green" }}
             positions={area.coordinates.map((c) => [c.lat, c.lon])}
           />
@@ -114,6 +117,20 @@ function LocationMarker({ areas, newArea, addCoordinate }: MarkerProps) {
 
 const AreasPage = () => {
   const position = [13.710281977060092, -89.21245856024711] as LatLngExpression;
+
+  const {
+    data: areasResponse,
+    isSuccess,
+    isLoading,
+    isUninitialized,
+  } = useGetAllQuery();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setAreas(areasResponse);
+    }
+  }, [isSuccess]);
+
   const [areas, setAreas] = useState<Area[] | null>(null);
   const [newArea, setNewArea] = useState<null | newArea>(null);
 
@@ -207,11 +224,7 @@ const AreasPage = () => {
     setNewArea(null);
   };
 
-  useEffect(() => {
-    //retrieve areas from api
-    const areas = mockAreas;
-    setAreas(areas);
-  }, []);
+  if (isLoading || isUninitialized) return <Loading />;
 
   return (
     <LayourInnerDashboard title="Áreas">

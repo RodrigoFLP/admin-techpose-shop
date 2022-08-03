@@ -2,7 +2,7 @@ export interface Product {
   id: number;
   name: string;
   description: string;
-  price: string;
+  price: string | number;
   portions: Portion[];
   portionsTagGroups: TagGroup[];
   tags: any[];
@@ -11,6 +11,11 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
 }
+
+export type ProductMutation = Omit<
+  Product & { price: number; categoriesId: number[] },
+  "createdAt" | "updatedAt" | "categories"
+>;
 
 export interface Category {
   id: number;
@@ -28,7 +33,7 @@ export interface Portion {
 export interface TagGroup {
   id: number | string;
   name: string;
-  portions: number[];
+  portions: string[];
   max: number;
   min: number;
   hidden: boolean;

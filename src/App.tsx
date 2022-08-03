@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "./views/Login/LoginPage";
 import OnBoardingPage from "./views/OnBoarding/OnBoardingPage";
 import DashboardPage from "./views/Dashboard/Dashboard";
@@ -34,6 +34,7 @@ function App() {
         <NotificationsProvider>
           <BrowserRouter>
             <Routes>
+              <Route path="*" element={<Navigate to="/dashboard" />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/onboarding" element={<OnBoardingPage />} />
               <Route element={<ProtectedRoute />}>

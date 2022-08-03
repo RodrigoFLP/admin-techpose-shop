@@ -17,7 +17,7 @@ import { useForm } from "@mantine/form";
 import { randomId } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { Portion, Tag, TagGroup } from "../../../interfaces";
-import TagCard from "./../TagCard";
+import TagCard from "../TagCard";
 import TagForm from "./TagForm";
 
 interface Props {
@@ -44,7 +44,6 @@ const TagGroupsForm = ({ tagGroup, portions, onSave, onDelete }: Props) => {
   };
 
   const updateTag = (updatedTag: Tag) => {
-    console.log(tags);
     if (tags) {
       setTags((prev) =>
         prev!.map((tag) => (tag.id === updatedTag.id ? updatedTag : tag))
@@ -54,8 +53,6 @@ const TagGroupsForm = ({ tagGroup, portions, onSave, onDelete }: Props) => {
   };
 
   const addTag = (newTag: Omit<Tag, "id">) => {
-    console.log("se agrega");
-
     setTags((prev) =>
       prev
         ? [...prev, { ...newTag, id: randomId() }]
@@ -69,7 +66,9 @@ const TagGroupsForm = ({ tagGroup, portions, onSave, onDelete }: Props) => {
       name: tagGroup ? tagGroup.name : "",
       max: tagGroup ? tagGroup.max : 0,
       min: tagGroup ? tagGroup.min : 0,
-      portions: tagGroup ? tagGroup.portions : [],
+      portions: tagGroup
+        ? tagGroup.portions.map((portionId) => `${portionId}`)
+        : [],
     },
     validate: {
       name: (value) =>
@@ -93,7 +92,7 @@ const TagGroupsForm = ({ tagGroup, portions, onSave, onDelete }: Props) => {
     onSave({
       id: tagGroup ? tagGroup.id : randomId(),
       name: values.name!,
-      portions: values.portions!,
+      portions: values.portions.map((portionId) => portionId)!,
       max: values.max!,
       min: values.min!,
       hidden: false,

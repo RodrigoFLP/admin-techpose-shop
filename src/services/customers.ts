@@ -3,7 +3,7 @@ import { Customer } from "../interfaces/customer";
 
 export const products = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.10:5000/customers`,
+    baseUrl: `http://192.168.0.17:5000/customers`,
     credentials: "include",
   }),
   endpoints: (builder) => ({

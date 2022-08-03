@@ -1,4 +1,4 @@
-import { Button, Grid, TextInput } from "@mantine/core";
+import { Button, Container, Grid, Image, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { FileCheck } from "tabler-icons-react";
@@ -40,7 +40,28 @@ const CategoryForm = ({ category }: Props) => {
             label="Descripción"
             mb="xs"
           />
-          <ImageDropzone image={image} onChange={setImage} />
+          <Text mt="md" weight="bold" size="sm">
+            Imagen
+          </Text>
+          <Grid columns={3} align="center" mt="0">
+            <Grid.Col span={2}>
+              <ImageDropzone onChange={setImage} image={image} />
+            </Grid.Col>
+            <Grid.Col span={1}>
+              <Container>
+                {category?.image ? (
+                  <Image
+                    height={64}
+                    src={category.image}
+                    radius="sm"
+                    caption="Imagen actual"
+                  />
+                ) : (
+                  <Text size="sm">No existe imagen</Text>
+                )}
+              </Container>
+            </Grid.Col>
+          </Grid>
         </Grid.Col>
       </Grid>
       <Button mt="md" leftIcon={<FileCheck />} type="submit">

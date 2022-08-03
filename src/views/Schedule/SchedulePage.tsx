@@ -1,6 +1,7 @@
 import { Button, Grid, Group, Stack, Title } from "@mantine/core";
 import { FileCheck } from "tabler-icons-react";
 import LayourInnerDashboard from "../../components/layouts/LayoutInnerDashboard";
+import Loading from "../../components/Loading";
 import useSchedule from "../../hooks/useSchedule";
 import daysOfWeek from "../../utils/constants/daysOfWeek.constants";
 import DayScheduleSelect from "./DayScheduleSelect";
@@ -12,7 +13,10 @@ const SchedulePage = () => {
     updateScheduleItem,
     deleteScheduleItem,
     onSaveSchedule,
+    isLoading,
   ] = useSchedule();
+
+  if (isLoading) return <Loading />;
 
   return (
     <LayourInnerDashboard title="Horario">

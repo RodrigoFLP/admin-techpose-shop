@@ -1,18 +1,37 @@
 import { Button, ScrollArea, Card, ActionIcon, Table } from "@mantine/core";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router-dom";
 import { Edit, Plus, Trash } from "tabler-icons-react";
 import LayourInnerDashboard from "../../components/layouts/LayoutInnerDashboard";
+import Loading from "../../components/Loading";
 import orderMock from "../../mocks/order";
+import { useGetAllQuery } from "../../services/tickets";
+import { getStatus } from "../../utils/helpers/getStatus";
 
 const OrdersPage = () => {
-  const rows = orderMock.map((element) => (
+  const {
+    data: orders,
+    isSuccess,
+    isLoading,
+    isUninitialized,
+    isError,
+  } = useGetAllQuery();
+
+  if (isLoading || isUninitialized) return <Loading />;
+
+  if (isError) return <div>Error</div>;
+
+  dayjs.extend(relativeTime);
+
+  const rows = orders.map((element) => (
     <tr key={element.id}>
       <td>{element.id}</td>
-      <td>{element.createdAt}</td>
+      <td>{dayjs(element.createdAt).fromNow()}</td>
       <td>{element.orderType}</td>
-      <td>{element.status.orderConfirmed}</td>
-      <td>{"cliente"}</td>
-      <td>{element.totalAmount}</td>
+      <td>{getStatus(element.status)}</td>
+      <td>{element.customer.phoneNumber}</td>
+      <td>${parseFloat(element.totalAmount).toFixed(2)}</td>
       <td>
         <Link to={`/dashboard/ordenes/${element.id}`}>
           <ActionIcon>

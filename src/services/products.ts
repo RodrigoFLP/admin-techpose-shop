@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Product } from "../interfaces";
+import { Product, ProductMutation } from "../interfaces";
 
 export const products = createApi({
   reducerPath: "products",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.10:5000/products`,
+    baseUrl: `http://192.168.0.17:5000/products`,
     credentials: "include",
   }),
   endpoints: (builder) => ({
@@ -22,7 +22,7 @@ export const products = createApi({
         credentials: "include",
       }),
     }),
-    updateProduct: builder.mutation<Product, Product>({
+    updateProduct: builder.mutation<Product, ProductMutation>({
       query: (product) => ({
         url: `/${product.id}`,
         method: "PATCH",

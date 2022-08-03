@@ -34,9 +34,24 @@ const DayScheduleSelect = ({
     <>
       <Divider />
       <Group position="apart">
-        {largeScreen ? <Text size="sm">{day}</Text> : icon}
+        <Group>
+          <ActionIcon
+            size={largeScreen ? "md" : "xs"}
+            onClick={() =>
+              addScheduleItems({
+                daysOfWeek: [dayOfWeek],
+                isActive: true,
+                openTime: new Date(),
+                closeTime: new Date(),
+              })
+            }
+          >
+            <Plus size={16} />
+          </ActionIcon>
+          {largeScreen ? <Text size="sm">{day}</Text> : icon}
+        </Group>
         <Stack>
-          {schedule.length > 0 ? (
+          {schedule.length > 0 &&
             schedule.map((scheduleItem, index) => (
               <Group key={scheduleItem.id}>
                 <Switch
@@ -69,45 +84,15 @@ const DayScheduleSelect = ({
                     })
                   }
                 />
-                {index === 0 ? (
-                  <ActionIcon
-                    size={largeScreen ? "md" : "xs"}
-                    onClick={() =>
-                      addScheduleItems({
-                        daysOfWeek: [scheduleItem.dayOfWeek],
-                        isActive: true,
-                        openTime: new Date(),
-                        closeTime: new Date(),
-                      })
-                    }
-                  >
-                    <Plus size={16} />
-                  </ActionIcon>
-                ) : (
-                  <ActionIcon
-                    size={largeScreen ? "md" : "xs"}
-                    onClick={() => deleteScheduleItem(scheduleItem.id)}
-                  >
-                    <Trash size={16} />
-                  </ActionIcon>
-                )}
+
+                <ActionIcon
+                  size={largeScreen ? "md" : "xs"}
+                  onClick={() => deleteScheduleItem(scheduleItem.id)}
+                >
+                  <Trash size={16} />
+                </ActionIcon>
               </Group>
-            ))
-          ) : (
-            <ActionIcon
-              size={largeScreen ? "md" : "xs"}
-              onClick={() =>
-                addScheduleItems({
-                  daysOfWeek: [dayOfWeek],
-                  isActive: true,
-                  openTime: new Date(),
-                  closeTime: new Date(),
-                })
-              }
-            >
-              <Plus size={16} />
-            </ActionIcon>
-          )}
+            ))}
         </Stack>
       </Group>
     </>

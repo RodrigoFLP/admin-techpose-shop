@@ -4,7 +4,7 @@ import { Category, Product } from "../interfaces";
 export const categories = createApi({
   reducerPath: "categories",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.10:5000/categories`,
+    baseUrl: `http://192.168.0.17:5000/categories`,
     credentials: "include",
   }),
   endpoints: (builder) => ({

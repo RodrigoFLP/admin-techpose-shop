@@ -5,7 +5,18 @@ import { Portion, Product, TagGroup } from "../interfaces";
 import { mockProduct } from "../mocks/product";
 import { useGetOneQuery } from "../services/products";
 
+interface initialValues {
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+}
+
 const useEditProduct = (id: string) => {
+  const form = useForm({
+    initialValues: { title: "", description: "", category: "", price: 0 },
+  });
+
   const {
     data: product,
     isSuccess,
@@ -22,13 +33,20 @@ const useEditProduct = (id: string) => {
 
   const [tagGroupToEdit, setTagGroupToEdit] = useState<TagGroup | null>(null);
 
-  console.log(product);
-
   useEffect(() => {
     //API call retrieve product
 
     if (isSuccess) {
       setProductState(product);
+      form.setValues({
+        title: product.name,
+        description: product.description,
+        category: `${product.categories[0].id}`,
+        price:
+          typeof product.price !== "number"
+            ? parseFloat(product.price)
+            : product.price,
+      });
     }
   }, [isSuccess]);
 
@@ -151,6 +169,7 @@ const useEditProduct = (id: string) => {
     tagGroupToEdit,
     onSaveTagGroup,
     onDeleteTagGroup,
+    form,
   ] as const;
 };
 

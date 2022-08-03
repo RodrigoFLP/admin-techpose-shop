@@ -1,4 +1,4 @@
-import { Button, Card, Container, Image, Text } from "@mantine/core";
+import { Button, Card, Container, Group, Image, Text } from "@mantine/core";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { DragDrop2 } from "tabler-icons-react";
@@ -24,9 +24,12 @@ const ImageDropzone = ({ onChange, image }: Props) => {
         <Card.Section>
           <Image src={URL.createObjectURL(image)} />
         </Card.Section>
-        <Button mt="sm" color="red" size="xs" onClick={() => onChange(null)}>
-          Eliminar
-        </Button>
+        <Group align="end" position="apart">
+          <Text size="sm">Nueva imagen</Text>
+          <Button mt="sm" color="red" size="xs" onClick={() => onChange(null)}>
+            Eliminar
+          </Button>
+        </Group>
       </Card>
     );
   }

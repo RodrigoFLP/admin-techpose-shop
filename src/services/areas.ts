@@ -1,22 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Area } from "../interfaces/area";
 import { Ticket } from "../interfaces/ticket";
 
-export const tickets = createApi({
-  reducerPath: "tickets",
-
+export const areas = createApi({
+  reducerPath: "areas",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.17:5000/tickets`,
+    baseUrl: `http://192.168.0.17:5000/stores/1/area`,
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    // getOne: builder.query<Ticket, number | string>({
-    //   query: (id) => ({
-    //     url: `/${id}`,
-    //     method: "GET",
-    //     credentials: "include",
-    //   }),
-    // }),
-    getAll: builder.query<Ticket[], void>({
+    getAll: builder.query<Area[], void>({
       query: () => ({
         url: "",
         method: "GET",
@@ -45,4 +38,4 @@ export const {
   useGetAllQuery,
   useUpdateTicketMutation,
   useRemoveTicketMutation,
-} = tickets;
+} = areas;

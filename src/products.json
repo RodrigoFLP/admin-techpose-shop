@@ -246,7 +246,68 @@
 				]
 			}
 		],
-		"portionsTagGroups": null,
+		"portionsTagGroups": [{
+			"id": 2,
+			"portions": [1],
+			"max": 5,
+			"min": 0,
+			"name": "complementos",
+			"tags": [
+				{
+					"id": 1,
+					"name": "complementos",
+					"price": 0.2,
+					"ratio": 0,
+					"value": "salsa verde"
+				},
+				{
+					"id": 2,
+					"name": "complementos",
+					"price": 0.25,
+					"ratio": 0,
+					"value": "salsa roja"
+				},
+				{
+					"id": 3,
+					"name": "complementos",
+					"price": 0.5,
+					"ratio": 0,
+					"value": "queso"
+				}
+			],
+			"hidden": false
+		},
+		{
+			"id": 1,
+			"portions": [2],
+			"max": 3,
+			"min": 0,
+			"name": "complementos",
+			"tags": [
+				{
+					"id": 1,
+					"name": "complementos",
+					"price": 0.5,
+					"ratio": 0,
+					"value": "cebolla"
+				},
+				{
+					"id": 2,
+					"name": "complementos",
+					"price": 0.3,
+					"ratio": 0,
+					"value": "lechuga"
+				},
+				{
+					"id": 3,
+					"name": "complementos",
+					"price": 0.2,
+					"ratio": 0,
+					"value": "Pimienta"
+				}
+			],
+			"hidden": false
+		}],
 		"tags": [],
 		"image": "http://dummyimage.com/614x287.png/ff4444/ffffff",
 		"createdAt": "2022-05-22T22:02:13.626Z",
@@ -345,7 +406,7 @@
 		"id": 7,
 		"name": "Torta hawuaiana",
 		"description": "Esta es la descripción de la torta hawaiana",
-		"price": "4.8000",
+		"price": 4.80,
 		"portions": [
 			{
 				"id": 1,
@@ -385,7 +446,37 @@
 				]
 			}
 		],
-		"portionsTagGroups": null,
+		"portionsTagGroups": [{
+			"id": 1,
+			"portions": [1],
+			"max": 6,
+			"min": 0,
+			"name": "complementos",
+			"tags": [
+				{
+					"id": 1,
+					"name": "complementos",
+					"price": 0.5,
+					"ratio": 0,
+					"value": "cebolla"
+				},
+				{
+					"id": 2,
+					"name": "complementos",
+					"price": 0.25,
+					"ratio": 0,
+					"value": "piña"
+				},
+				{
+					"id": 3,
+					"name": "complementos",
+					"price": 0.2,
+					"ratio": 0,
+					"value": "Pimienta"
+				}
+			],
+			"hidden": false
+		}],
 		"tags": [],
 		"image": "http://dummyimage.com/989x397.png/ff4444/ffffff",
 		"createdAt": "2022-05-22T22:02:57.193Z",
@@ -473,25 +564,76 @@
 				]
 			}
 		],
-		"portionsTagGroups": null,
+		"portionsTagGroups": [{
+			"id": 1,
+			"portions": [1],
+			"max": 1,
+			"min": 1,
+			"name": "proteína",
+			"tags": [
+				{
+					"id": 1,
+					"name": "proteína",
+					"price": 0,
+					"ratio": 0,
+					"value": "res"
+				},
+				{
+					"id": 2,
+					"name": "proteína",
+					"price": 0.5,
+					"ratio": 0,
+					"value": "pollo"
+				},
+				{
+					"id": 3,
+					"name": "proteína",
+					"price": 0.75,
+					"ratio": 0,
+					"value": "cerdo"
+				}
+			],
+			"hidden": false
+		},
+		{
+			"id": 1,
+			"portions": [1],
+			"max": 6,
+			"min": 0,
+			"name": "complementos",
+			"tags": [
+				{
+					"id": 1,
+					"name": "complementos",
+					"price": 0.5,
+					"ratio": 0,
+					"value": "cebolla"
+				},
+				{
+					"id": 2,
+					"name": "complementos",
+					"price": 0.25,
+					"ratio": 0,
+					"value": "piña"
+				},
+				{
+					"id": 3,
+					"name": "complementos",
+					"price": 0.2,
+					"ratio": 0,
+					"value": "Pimienta"
+				}
+			],
+			"hidden": false
+		}],
 		"tags": [],
-		"image": "http://dummyimage.com/431x591.png/cc0000/ffffff",
-		"createdAt": "2022-05-22T22:03:10.975Z",
-		"updatedAt": "2022-05-22T22:03:10.975Z",
-		"categories": [
-			{
-				"id": 3,
-				"name": "Tortas",
-				"description": "Esta es la descripción de las tortas",
-				"image": "http://dummyimage.com/660x231.png/cc0000/ffffff"
-			}
-		]
+		"image": "http://dummyimage.com/431x591.png/cc0000/ffffff"
 	},
 	{
 		"id": 9,
 		"name": "Torta tradicional",
 		"description": "Esta es la descripción de la torta tradicional",
-		"price": "3.9900",
+		"price": 3.99,
 		"portions": [
 			{
 				"id": 1,
@@ -561,18 +703,69 @@
 				]
 			}
 		],
-		"portionsTagGroups": null,
+		"portionsTagGroups": [{
+			"id": 1,
+			"portions": [1],
+			"max": 1,
+			"min": 1,
+			"name": "proteína",
+			"tags": [
+				{
+					"id": 1,
+					"name": "proteína",
+					"price": 0,
+					"ratio": 0,
+					"value": "res"
+				},
+				{
+					"id": 2,
+					"name": "proteína",
+					"price": 0.5,
+					"ratio": 0,
+					"value": "pollo"
+				},
+				{
+					"id": 3,
+					"name": "proteína",
+					"price": 0.75,
+					"ratio": 0,
+					"value": "cerdo"
+				}
+			],
+			"hidden": false
+		},
+		{
+			"id": 1,
+			"portions": [1],
+			"max": 6,
+			"min": 0,
+			"name": "complementos",
+			"tags": [
+				{
+					"id": 1,
+					"name": "complementos",
+					"price": 0.5,
+					"ratio": 0,
+					"value": "cebolla"
+				},
+				{
+					"id": 2,
+					"name": "complementos",
+					"price": 0.25,
+					"ratio": 0,
+					"value": "piña"
+				},
+				{
+					"id": 3,
+					"name": "complementos",
+					"price": 0.2,
+					"ratio": 0,
+					"value": "Pimienta"
+				}
+			],
+			"hidden": false
+		}],
 		"tags": [],
-		"image": "http://dummyimage.com/976x544.png/cc0000/ffffff",
-		"createdAt": "2022-05-22T22:03:21.423Z",
-		"updatedAt": "2022-05-22T22:03:21.423Z",
-		"categories": [
-			{
-				"id": 3,
-				"name": "Tortas",
-				"description": "Esta es la descripción de las tortas",
-				"image": "http://dummyimage.com/660x231.png/cc0000/ffffff"
-			}
-		]
+		"image": "http://dummyimage.com/976x544.png/cc0000/ffffff"
 	}
 ]

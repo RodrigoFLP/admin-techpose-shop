@@ -1,5 +1,7 @@
-import { Select, Textarea, TextInput } from "@mantine/core";
+import { NumberInput, Select, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
+import { CurrencyDollar } from "tabler-icons-react";
+import { Category } from "../../../interfaces";
 
 interface Props {
   initialValues: initialValues;
@@ -8,7 +10,8 @@ interface Props {
 interface initialValues {
   title: string;
   description: string;
-  category: string;
+  category: Category;
+  price: number;
 }
 
 const ProductForm = ({ initialValues }: Props) => {
@@ -16,7 +19,13 @@ const ProductForm = ({ initialValues }: Props) => {
     initialValues: { ...initialValues },
   });
 
-  const handleSubmit = async (values: typeof form.values) => {};
+  const handleSubmit = async (values: typeof form.values) => {
+    if (form.validate()) {
+      throw new Error("invalid");
+    }
+
+    return values;
+  };
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -31,6 +40,16 @@ const ProductForm = ({ initialValues }: Props) => {
         mt={"xs"}
         label="Descripción"
         placeholder="Descripción"
+      />
+      <NumberInput
+        {...form.getInputProps("price")}
+        mt={"xs"}
+        label="Precio"
+        placeholder="Precio"
+        min={0}
+        precision={2}
+        step={0.01}
+        icon={<CurrencyDollar size={16} />}
       />
       <Select
         {...form.getInputProps("category")}

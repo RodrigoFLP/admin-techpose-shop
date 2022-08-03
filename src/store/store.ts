@@ -9,6 +9,8 @@ import { startAppListening, listenerMiddleware } from "./listenerMiddleware";
 import { products } from "../services/products";
 import { categories } from "../services/categories";
 import { schedules } from "../services/schedules";
+import { areas } from "../services/areas";
+import { tickets } from "../services/tickets";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +18,8 @@ export const store = configureStore({
     [products.reducerPath]: products.reducer,
     [categories.reducerPath]: categories.reducer,
     [schedules.reducerPath]: schedules.reducer,
+    [areas.reducerPath]: areas.reducer,
+    [tickets.reducerPath]: tickets.reducer,
     auth: authSlice,
   },
   middleware: (getDefaultMiddleware) =>
@@ -24,6 +28,8 @@ export const store = configureStore({
       .concat(products.middleware)
       .concat(categories.middleware)
       .concat(schedules.middleware)
+      .concat(areas.middleware)
+      .concat(tickets.middleware)
       .prepend(listenerMiddleware.middleware),
 });
 
