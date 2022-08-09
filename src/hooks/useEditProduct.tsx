@@ -1,54 +1,210 @@
 import { useForm } from "@mantine/form";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Check, X } from "tabler-icons-react";
 import { Portion, Product, TagGroup } from "../interfaces";
-import { mockProduct } from "../mocks/product";
-import { useGetOneQuery } from "../services/products";
+import { useGetAllCategoriesQuery } from "../services/categories";
+import {
+  useAddProductMutation,
+  useGetMutation,
+  useUpdateProductMutation,
+} from "../services/products";
+import { uploadImage } from "../utils/uploadImage";
 
 interface initialValues {
+  id: number;
   title: string;
   description: string;
   category: string;
   price: number;
 }
 
-const useEditProduct = (id: string) => {
-  const form = useForm({
-    initialValues: { title: "", description: "", category: "", price: 0 },
-  });
+const useEditProduct = () => {
+  const [image, setImage] = useState<null | File>(null);
+
+  const location = useLocation();
+  const id = location.pathname.split("/")[4];
+
+  const [getProduct, productResult] = useGetMutation();
+
+  const [updateProduct, updateResult] = useUpdateProductMutation();
+
+  const [addProduct, addResult] = useAddProductMutation();
+
+  const fetchProduct = async (id: string) => {
+    try {
+      const result = await getProduct(id).unwrap();
+      setProductState(result);
+      form.setValues({
+        id: result.id,
+        title: result.name,
+        description: result.description,
+        category: `${result.categories[0].id}`,
+        price:
+          typeof result.price !== "number"
+            ? parseFloat(result.price)
+            : result.price,
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const newProduct = async () => {
+    try {
+      setProductState({
+        id: 0,
+        categories: [],
+        description: "",
+        image: null,
+        name: "",
+        portions: [],
+        portionsTagGroups: [],
+        price: 0,
+        tags: [],
+        createdAt: "",
+        updatedAt: "",
+      });
+      form.setValues({
+        id: 0,
+        title: "",
+        description: "",
+        category: "",
+        price: 0,
+      });
+    } catch (e) {
+      throw new Error("No se ha podido fetchear");
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      fetchProduct(id);
+    }
+    if (!id) {
+      newProduct();
+    }
+  }, []);
 
   const {
-    data: product,
-    isSuccess,
-    isLoading: isProductsLoading,
-    isUninitialized: isProductsUnintialized,
-    isError,
-  } = useGetOneQuery(id);
+    data: categories,
+    isSuccess: isCategoriesSuccess,
+    isLoading: isCategoriesLoading,
+    isError: isCategoriesError,
+    isUninitialized: isCategoriesUnintialized,
+  } = useGetAllCategoriesQuery();
 
-  const isLoading = isProductsLoading || isProductsUnintialized;
+  const handleSubmit = async () => {
+    console.log(productState);
+
+    try {
+      let imageSrc;
+
+      if (image) {
+        showNotification({
+          id: "load-product",
+          loading: true,
+          title: "Subiendo Imagen",
+          message: "Se está subiendo la imagen al servidor",
+          autoClose: false,
+          disallowClose: true,
+        });
+        imageSrc = await uploadImage(image);
+        updateNotification({
+          id: "load-product",
+          loading: true,
+          title: "Actualizando producto",
+          message: "Se está actualizando",
+          autoClose: false,
+          disallowClose: true,
+        });
+      }
+
+      if (!imageSrc) {
+        showNotification({
+          id: "load-product",
+          loading: true,
+          title: "Actualizando producto",
+          message: "Se está actualizando el producto",
+          autoClose: false,
+          disallowClose: true,
+        });
+      }
+
+      if (!productState) {
+        throw new Error("Producto inválido");
+      }
+
+      if (id) {
+        await updateProduct({
+          id: productState.id,
+          name: form.values.title,
+          categoriesId: [parseInt(form.values.category)],
+          description: form.values.description,
+          image: imageSrc ? imageSrc : productState.image,
+          price:
+            typeof form.values.price !== "number"
+              ? parseFloat(form.values.price)
+              : form.values.price,
+          portions: productState.portions,
+          portionsTagGroups: productState.portionsTagGroups,
+          tags: productState.tags,
+        }).unwrap();
+      }
+
+      if (!id) {
+        await addProduct({
+          id: productState.id,
+          name: form.values.title,
+          categoriesId: [parseInt(form.values.category)],
+          description: form.values.description,
+          image: imageSrc ? imageSrc : productState.image,
+          price:
+            typeof form.values.price !== "number"
+              ? parseFloat(form.values.price)
+              : form.values.price,
+          portions: productState.portions,
+          portionsTagGroups: productState.portionsTagGroups,
+          tags: productState.tags,
+        }).unwrap();
+      }
+
+      updateNotification({
+        id: "load-product",
+        color: "teal",
+        title: "Listo",
+        message: "El producto se ha actualizado con éxito",
+        icon: <Check />,
+        autoClose: 2000,
+      });
+    } catch (error) {
+      updateNotification({
+        id: "load-product",
+        color: "red",
+        title: "Error",
+        message: "No se ha podido realizar la acción",
+        icon: <X />,
+        autoClose: 2000,
+      });
+    }
+  };
+
+  const form = useForm({
+    initialValues: {
+      id: 0,
+      title: "",
+      description: "",
+      category: "",
+      price: 0,
+    },
+  });
 
   const [productState, setProductState] = useState<Product | null>(null);
 
   const [portionToEdit, setPortionToEdit] = useState<Portion | null>(null);
 
   const [tagGroupToEdit, setTagGroupToEdit] = useState<TagGroup | null>(null);
-
-  useEffect(() => {
-    //API call retrieve product
-
-    if (isSuccess) {
-      setProductState(product);
-      form.setValues({
-        title: product.name,
-        description: product.description,
-        category: `${product.categories[0].id}`,
-        price:
-          typeof product.price !== "number"
-            ? parseFloat(product.price)
-            : product.price,
-      });
-    }
-  }, [isSuccess]);
 
   const onSavePortion = (newPortion: Portion) => {
     setPortionToEdit(null);
@@ -153,10 +309,25 @@ const useEditProduct = (id: string) => {
     closeTagGroupModal();
   };
 
+  const isLoading =
+    (productResult.isLoading ||
+      productResult.isUninitialized ||
+      isCategoriesLoading ||
+      isCategoriesUnintialized) &&
+    id;
+
+  const isError = productResult.isError || isCategoriesError;
+
+  const isNewProduct = !!id;
+
   return [
     productState,
-    isLoading,
-    isError,
+    categories,
+    id,
+    handleSubmit,
+    image,
+    setImage,
+    setProductState,
     showPortionModal,
     openPortionModal,
     closePortionModal,
@@ -170,6 +341,9 @@ const useEditProduct = (id: string) => {
     onSaveTagGroup,
     onDeleteTagGroup,
     form,
+    isLoading,
+    isError,
+    isNewProduct,
   ] as const;
 };
 

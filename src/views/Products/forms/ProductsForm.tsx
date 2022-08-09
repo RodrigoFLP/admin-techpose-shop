@@ -1,5 +1,5 @@
 import { NumberInput, Select, Textarea, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/hooks";
+import { useForm } from "@mantine/form";
 import { CurrencyDollar } from "tabler-icons-react";
 import { Category } from "../../../interfaces";
 

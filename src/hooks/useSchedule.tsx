@@ -4,11 +4,13 @@ import {
   ScheduleStatus,
   UpdateSchedulePayload,
 } from "../interfaces";
-import { schedules } from "../mocks/schedules";
 import { useEffect, useState } from "react";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import { Check } from "tabler-icons-react";
-import { useGetAllQuery } from "../services/schedules";
+import { Check, X } from "tabler-icons-react";
+import {
+  useGetAllQuery,
+  useUpdateScheduleMutation,
+} from "../services/schedules";
 
 const useSchedule = () => {
   const {
@@ -17,6 +19,8 @@ const useSchedule = () => {
     isLoading: isScheduleLoading,
     isUninitialized: isScheduleUnitialized,
   } = useGetAllQuery();
+
+  const [updateSchedule, result] = useUpdateScheduleMutation();
 
   const isLoading = isScheduleLoading || isScheduleUnitialized;
 
@@ -132,21 +136,17 @@ const useSchedule = () => {
     });
   };
 
-  const onSaveSchedule = () => {
-    //TODO: implement schedule mutation
-
-    console.log(scheduleState);
-
-    showNotification({
-      id: "load-data",
-      loading: true,
-      title: "Guardando cambios",
-      message: "Se está actualizando el horario",
-      autoClose: false,
-      disallowClose: true,
-    });
-
-    setTimeout(() => {
+  const onSaveSchedule = async () => {
+    try {
+      showNotification({
+        id: "load-data",
+        loading: true,
+        title: "Guardando cambios",
+        message: "Se está actualizando el horario",
+        autoClose: false,
+        disallowClose: true,
+      });
+      await updateSchedule(scheduleState).unwrap();
       updateNotification({
         id: "load-data",
         color: "teal",
@@ -155,8 +155,19 @@ const useSchedule = () => {
         icon: <Check />,
         autoClose: 2000,
       });
-    }, 1000);
+    } catch (err) {
+      updateNotification({
+        id: "load-data",
+        color: "red",
+        title: "Error",
+        message: "No se ha podido actualizar el horario, intenta de nuevo",
+        icon: <X />,
+        autoClose: 2000,
+      });
+    }
   };
+
+  const isUpdating = result.isLoading;
 
   return [
     scheduleState,
@@ -165,6 +176,7 @@ const useSchedule = () => {
     deleteScheduleItem,
     onSaveSchedule,
     isLoading,
+    isUpdating,
   ] as const;
 };
 

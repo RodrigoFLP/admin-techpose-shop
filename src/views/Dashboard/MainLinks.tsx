@@ -11,6 +11,7 @@ import {
   Api,
   Users,
   Icon,
+  Settings,
   InfoCircle,
   Home,
 } from "tabler-icons-react";
@@ -136,10 +137,10 @@ const configData: Data[] = [
     path: "/dashboard/areas",
   },
   {
-    icon: <Motorbike size={16} />,
+    icon: <Settings size={16} />,
     color: "cyan",
-    label: "Pedidos",
-    path: "/dashboard/pedidos",
+    label: "Preferencias",
+    path: "/dashboard/preferencias",
   },
   {
     icon: <Users size={16} />,

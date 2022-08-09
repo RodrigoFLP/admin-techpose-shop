@@ -14,3 +14,7 @@ export interface newArea {
   inclusive: boolean;
   coordinates: number[][];
 }
+
+export interface AreaMutation {
+  coordinates: Omit<Coordinate, "id">[];
+}

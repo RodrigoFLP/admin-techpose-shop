@@ -21,14 +21,14 @@ const CategoriesPage = () => {
     return <div>"Error"</div>;
   }
 
-  const rows = categories.map((element) => (
-    <tr key={element.id}>
-      <td>{element.id}</td>
-      <td>{element.name}</td>
-      <td>{element.description}</td>
+  const rows = categories.map((category) => (
+    <tr key={category.id}>
+      <td>{category.id}</td>
+      <td>{category.name}</td>
+      <td>{category.description}</td>
       <td>{true ? "Sí" : "No"}</td>
       <td>
-        <Link to={`/dashboard/categorias/${element.id}`}>
+        <Link to={`/dashboard/categorias/editar/${category.id}`}>
           <ActionIcon>
             <Edit size={16} />
           </ActionIcon>
@@ -49,7 +49,11 @@ const CategoriesPage = () => {
   return (
     <LayourInnerDashboard
       title="Categorías"
-      rightAction={<Button leftIcon={<Plus size={16} />}>Agregar</Button>}
+      rightAction={
+        <Link to={`/dashboard/categorias/editar`}>
+          <Button leftIcon={<Plus size={16} />}>Agregar</Button>
+        </Link>
+      }
     >
       <Card style={{ maxWidth: "90vw" }} withBorder>
         <Card.Section>

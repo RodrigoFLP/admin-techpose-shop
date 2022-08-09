@@ -1,13 +1,41 @@
-import { Button, ScrollArea, Card, ActionIcon, Table } from "@mantine/core";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import {
+  ScrollArea,
+  Card,
+  ActionIcon,
+  Table,
+  Title,
+  Grid,
+} from "@mantine/core";
+
 import { Link } from "react-router-dom";
-import { Edit, Plus, Trash } from "tabler-icons-react";
+import { Edit, Trash } from "tabler-icons-react";
 import LayourInnerDashboard from "../../components/layouts/LayoutInnerDashboard";
 import Loading from "../../components/Loading";
-import orderMock from "../../mocks/order";
-import { useGetAllQuery } from "../../services/tickets";
+import { ActiveOrder } from "../../interfaces/order";
+import { useGetAllActiveQuery, useGetAllQuery } from "../../services/tickets";
+import { dateFromNow } from "../../utils/helpers/dateFromNow";
 import { getStatus } from "../../utils/helpers/getStatus";
+import priceToFixed from "../../utils/helpers/priceToFixed";
+import { OrderCard } from "./OrderCard";
+
+interface ActiveOrdersProps {
+  orders: ActiveOrder[];
+}
+
+const ActiveOrders = ({ orders }: ActiveOrdersProps) => {
+  return (
+    <div>
+      <Title order={4}>Activas</Title>
+      <Grid columns={6} mt="md" sx={(theme) => ({ position: "relative" })}>
+        {orders.map((order) => (
+          <Grid.Col xs={6} sm={3} md={2} lg={2} xl={2} key={order.id}>
+            <OrderCard order={order} />
+          </Grid.Col>
+        ))}
+      </Grid>
+    </div>
+  );
+};
 
 const OrdersPage = () => {
   const {
@@ -18,20 +46,32 @@ const OrdersPage = () => {
     isError,
   } = useGetAllQuery();
 
-  if (isLoading || isUninitialized) return <Loading />;
+  const {
+    data: activeOrders,
+    isSuccess: isActiveOrdersSuccess,
+    isLoading: isActiveOrdersLoading,
+    isUninitialized: isActiveOrdersUnintialized,
+    isError: isActiveOrdersError,
+  } = useGetAllActiveQuery();
 
-  if (isError) return <div>Error</div>;
+  if (
+    isLoading ||
+    isUninitialized ||
+    isActiveOrdersLoading ||
+    isActiveOrdersUnintialized
+  )
+    return <Loading />;
 
-  dayjs.extend(relativeTime);
+  if (isError || isActiveOrdersError) return <div>Error</div>;
 
   const rows = orders.map((element) => (
     <tr key={element.id}>
       <td>{element.id}</td>
-      <td>{dayjs(element.createdAt).fromNow()}</td>
+      <td>{dateFromNow(element.createdAt)}</td>
       <td>{element.orderType}</td>
       <td>{getStatus(element.status)}</td>
       <td>{element.customer.phoneNumber}</td>
-      <td>${parseFloat(element.totalAmount).toFixed(2)}</td>
+      <td>{priceToFixed(element.totalAmount)}</td>
       <td>
         <Link to={`/dashboard/ordenes/${element.id}`}>
           <ActionIcon>
@@ -52,11 +92,12 @@ const OrdersPage = () => {
   ));
 
   return (
-    <LayourInnerDashboard
-      title="Ordenes"
-      rightAction={<Button leftIcon={<Plus size={16} />}>Agregar</Button>}
-    >
-      <Card style={{ maxWidth: "90vw" }} withBorder>
+    <LayourInnerDashboard title="Ordenes">
+      <ActiveOrders orders={activeOrders} />
+      <Title order={4} mt="xl">
+        Lista de ordenes
+      </Title>
+      <Card style={{ maxWidth: "90vw" }} withBorder mt="md">
         <Card.Section>
           <ScrollArea>
             <Table striped highlightOnHover>

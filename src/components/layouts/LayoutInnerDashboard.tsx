@@ -15,7 +15,7 @@ const LayourInnerDashboard: FC<Props> = ({
   leftAction,
 }) => {
   return (
-    <Container style={{ minHeight: "90vh" }} mb="sm">
+    <Container style={{ minHeight: "90vh" }} mb="xl">
       <Group py={"xl"} position="apart">
         <Group>
           {leftAction}

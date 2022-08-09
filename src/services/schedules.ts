@@ -1,41 +1,35 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Schedule } from "../interfaces";
-import { Ticket } from "../interfaces/ticket";
 
 export const schedules = createApi({
   reducerPath: "schedules",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.17:5000/schedules`,
+    baseUrl: `${import.meta.env.VITE_API_URL}`,
     credentials: "include",
   }),
+  tagTypes: ["Schedule", "Error"],
+
   endpoints: (builder) => ({
     getAll: builder.query<Schedule[], void>({
       query: () => ({
-        url: "/main",
+        url: "schedules/main",
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["Schedule"],
     }),
-    updateTicket: builder.mutation<Ticket, Ticket>({
-      query: (product) => ({
-        url: `/${product.id}`,
+
+    updateSchedule: builder.mutation<any, any>({
+      query: (mutation) => ({
+        url: `/stores/schedule`,
         method: "PATCH",
         credentials: "include",
-        body: product,
+        body: mutation,
       }),
-    }),
-    removeTicket: builder.mutation<Ticket, number | string>({
-      query: (id) => ({
-        url: `/${id}`,
-        method: "DELETE",
-        credentials: "include",
-      }),
+      invalidatesTags: (result, error, arg) =>
+        result ? ["Schedule"] : ["Error"],
     }),
   }),
 });
 
-export const {
-  useGetAllQuery,
-  useUpdateTicketMutation,
-  useRemoveTicketMutation,
-} = schedules;
+export const { useGetAllQuery, useUpdateScheduleMutation } = schedules;

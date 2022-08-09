@@ -14,6 +14,7 @@ const SchedulePage = () => {
     deleteScheduleItem,
     onSaveSchedule,
     isLoading,
+    isUpdating,
   ] = useSchedule();
 
   if (isLoading) return <Loading />;
@@ -42,7 +43,7 @@ const SchedulePage = () => {
                   updateScheduleItem={updateScheduleItem}
                 />
               ))}
-              <Button mt="xs" onClick={onSaveSchedule}>
+              <Button mt="xs" onClick={onSaveSchedule} disabled={isUpdating}>
                 <FileCheck size={16} />
                 Guardar
               </Button>

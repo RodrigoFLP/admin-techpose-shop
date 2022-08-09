@@ -4,11 +4,18 @@ import { Product, ProductMutation } from "../interfaces";
 export const products = createApi({
   reducerPath: "products",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.17:5000/products`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/products`,
     credentials: "include",
   }),
   endpoints: (builder) => ({
     getOne: builder.query<Product, number | string>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+    get: builder.mutation<Product, number | string>({
       query: (id) => ({
         url: `/${id}`,
         method: "GET",
@@ -30,7 +37,7 @@ export const products = createApi({
         body: product,
       }),
     }),
-    addProduct: builder.mutation<Product, Product>({
+    addProduct: builder.mutation<Product, ProductMutation>({
       query: (product) => ({
         url: "",
         method: "POST",
@@ -50,6 +57,7 @@ export const products = createApi({
 
 export const {
   useGetOneQuery,
+  useGetMutation,
   useGetAllQuery,
   useUpdateProductMutation,
   useAddProductMutation,

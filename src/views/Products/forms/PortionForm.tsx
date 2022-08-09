@@ -32,6 +32,7 @@ const PortionForm = ({ portion, onSave, onDelete }: Props) => {
       id: portion ? portion.id : randomId(),
       name: values.name!,
       price: values.price!,
+      tagGroups: [],
     });
   };
 

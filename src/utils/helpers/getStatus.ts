@@ -1,4 +1,4 @@
-import { Status } from "../../interfaces/ticket";
+import { Status, StatusType } from "../../interfaces/order";
 
 export const getStatus = (status: Status): string => {
   if (status.orderReceived) {
@@ -14,4 +14,20 @@ export const getStatus = (status: Status): string => {
     return "Pagada";
   }
   return "Sin pagar";
+};
+
+export const getStatusType = (status: Status): StatusType => {
+  if (status.orderReceived) {
+    return StatusType.DELIVERED;
+  }
+  if (status.orderPrepared) {
+    return StatusType.PREPARED;
+  }
+  if (status.orderConfirmed) {
+    return StatusType.CONFIRMED;
+  }
+  if (status.orderPaid) {
+    return StatusType.PAID;
+  }
+  return StatusType.PLACED;
 };

@@ -3,7 +3,7 @@ import { Customer } from "../interfaces/customer";
 
 export const products = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.17:5000/customers`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/customers`,
     credentials: "include",
   }),
   endpoints: (builder) => ({

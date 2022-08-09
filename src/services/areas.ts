@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Area } from "../interfaces/area";
-import { Ticket } from "../interfaces/ticket";
+import { Area, AreaMutation } from "../interfaces/area";
 
 export const areas = createApi({
   reducerPath: "areas",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.17:5000/stores/1/area`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/stores/1/area`,
     credentials: "include",
   }),
+  tagTypes: ["Area", "Error"],
   endpoints: (builder) => ({
     getAll: builder.query<Area[], void>({
       query: () => ({
@@ -15,16 +15,26 @@ export const areas = createApi({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["Area"],
     }),
-    updateTicket: builder.mutation<Ticket, Ticket>({
-      query: (product) => ({
-        url: `/${product.id}`,
-        method: "PATCH",
+    create: builder.mutation<Area, AreaMutation>({
+      query: (area) => ({
+        url: "",
+        method: "POST",
+        body: area,
         credentials: "include",
-        body: product,
       }),
+      invalidatesTags: ["Area"],
     }),
-    removeTicket: builder.mutation<Ticket, number | string>({
+    delete: builder.mutation<Area, number>({
+      query: (areaId) => ({
+        url: `/${areaId}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["Area"],
+    }),
+    removeany: builder.mutation<any, number | string>({
       query: (id) => ({
         url: `/${id}`,
         method: "DELETE",
@@ -34,8 +44,4 @@ export const areas = createApi({
   }),
 });
 
-export const {
-  useGetAllQuery,
-  useUpdateTicketMutation,
-  useRemoveTicketMutation,
-} = areas;
+export const { useGetAllQuery, useDeleteMutation, useCreateMutation } = areas;

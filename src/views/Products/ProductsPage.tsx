@@ -13,6 +13,7 @@ import { Edit, Plus, Trash } from "tabler-icons-react";
 import LayourInnerDashboard from "../../components/layouts/LayoutInnerDashboard";
 import Loading from "../../components/Loading";
 import { useGetAllQuery } from "../../services/products";
+import { dateFromNow } from "../../utils/helpers/dateFromNow";
 import priceToFixed from "../../utils/helpers/priceToFixed";
 
 const ProductsPage = () => {
@@ -38,10 +39,10 @@ const ProductsPage = () => {
       <td>{element.name}</td>
       <td>{element.description}</td>
       <td>{element.categories[0].name}</td>
-      <td>{priceToFixed(element.price)}</td>
+      <td>{dateFromNow(element.updatedAt)}</td>
       <td>{true ? "Sí" : "No"}</td>
       <td>
-        <Link to={`/dashboard/productos/${element.id}`}>
+        <Link to={`/dashboard/productos/editar/${element.id}`}>
           <ActionIcon>
             <Edit size={16} />
           </ActionIcon>
@@ -62,7 +63,11 @@ const ProductsPage = () => {
   return (
     <LayourInnerDashboard
       title="Productos"
-      rightAction={<Button leftIcon={<Plus size={16} />}>Agregar</Button>}
+      rightAction={
+        <Link to={`/dashboard/productos/editar`}>
+          <Button leftIcon={<Plus size={16} />}>Agregar</Button>
+        </Link>
+      }
     >
       <Card style={{ maxWidth: "90vw" }} withBorder>
         <Card.Section>
@@ -74,7 +79,7 @@ const ProductsPage = () => {
                   <th>Nombre</th>
                   <th>Descripción</th>
                   <th>Categoría</th>
-                  <th>Precio</th>
+                  <th>Modificado</th>
                   <th>Activo</th>
                   <th>Editar</th>
                   <th>Eliminar</th>

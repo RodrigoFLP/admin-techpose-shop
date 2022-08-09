@@ -9,6 +9,10 @@ import {
 
 const daysOfWeek = [
   {
+    day: "Domingo",
+    icon: <LetterD size={16} />,
+  },
+  {
     day: "Lunes",
     icon: <LetterL size={16} />,
   },
@@ -31,10 +35,6 @@ const daysOfWeek = [
   {
     day: "Sábado",
     icon: <LetterS size={16} />,
-  },
-  {
-    day: "Domingo",
-    icon: <LetterD size={16} />,
   },
 ];
 

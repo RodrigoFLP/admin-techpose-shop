@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Category, Product } from "../interfaces";
+import { Category } from "../interfaces";
 
 export const categories = createApi({
   reducerPath: "categories",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.17:5000/categories`,
+    baseUrl: `${import.meta.env.VITE_API_URL}/categories`,
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    getOneCategory: builder.query<Category, number | string>({
+    getOneCategory: builder.mutation<Category, number | string>({
       query: (id) => ({
         url: `/${id}`,
         method: "GET",
@@ -27,15 +27,15 @@ export const categories = createApi({
         url: `/${product.id}`,
         method: "PATCH",
         credentials: "include",
-        body: product,
+        body: { ...product, id: undefined },
       }),
     }),
-    addCategory: builder.mutation<Category, Category>({
+    addCategory: builder.mutation<Category, Omit<Category, "id">>({
       query: (product) => ({
         url: "",
         method: "POST",
         credentials: "include",
-        body: product,
+        body: { ...product },
       }),
     }),
     removeCategory: builder.mutation<Category, number | string>({
@@ -49,7 +49,7 @@ export const categories = createApi({
 });
 
 export const {
-  useGetOneCategoryQuery,
+  useGetOneCategoryMutation,
   useGetAllCategoriesQuery,
   useUpdateCategoryMutation,
   useAddCategoryMutation,

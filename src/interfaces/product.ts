@@ -6,7 +6,7 @@ export interface Product {
   portions: Portion[];
   portionsTagGroups: TagGroup[];
   tags: any[];
-  image: string;
+  image: string | null;
   categories: Category[];
   createdAt: string;
   updatedAt: string;
@@ -28,6 +28,7 @@ export interface Portion {
   id: number | string;
   name: string;
   price: number;
+  tagGroups: undefined | null | any[];
 }
 
 export interface TagGroup {

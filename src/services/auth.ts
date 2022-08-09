@@ -8,7 +8,7 @@ export interface LoginRequest {
 
 export const auth = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://192.168.0.17:5000`,
+    baseUrl: `${import.meta.env.VITE_API_URL}`,
     credentials: "include",
   }),
   tagTypes: ["Address", "Error"],

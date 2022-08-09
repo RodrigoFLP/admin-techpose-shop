@@ -11,6 +11,7 @@ import { categories } from "../services/categories";
 import { schedules } from "../services/schedules";
 import { areas } from "../services/areas";
 import { tickets } from "../services/tickets";
+import { shop } from "../services/store";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     [schedules.reducerPath]: schedules.reducer,
     [areas.reducerPath]: areas.reducer,
     [tickets.reducerPath]: tickets.reducer,
+    [shop.reducerPath]: shop.reducer,
     auth: authSlice,
   },
   middleware: (getDefaultMiddleware) =>
@@ -30,6 +32,7 @@ export const store = configureStore({
       .concat(schedules.middleware)
       .concat(areas.middleware)
       .concat(tickets.middleware)
+      .concat(shop.middleware)
       .prepend(listenerMiddleware.middleware),
 });
 

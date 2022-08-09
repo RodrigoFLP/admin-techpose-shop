@@ -13,7 +13,6 @@ import AreasPage from "./views/Areas/AreasPage";
 import OrdersPage from "./views/Orders/OrdersPage";
 import WompiPage from "./views/Wompi/WompiPage";
 import ClientsPage from "./views/Clients/ClientsPage";
-import OrdersConfigPage from "./views/OrdersConfig/OrdersConfigPage";
 import UsersPage from "./views/Users/UsersPage";
 import ApiPage from "./views/Api/ApiPage";
 import { NotificationsProvider } from "@mantine/notifications";
@@ -22,6 +21,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import ProtectedRoute from "./ProtectedRoute";
 import EditCategoriesPage from "./views/Categories/EditCategoryPage";
+import PreferencesPage from "./views/Preferences/PreferencesPage";
 
 function App() {
   return (
@@ -42,10 +42,21 @@ function App() {
                   <Route index element={<HomePage />} />
                   <Route path="pagina" element={<PageConfigPage />} />
                   <Route path="productos" element={<ProductsPage />} />
-                  <Route path="productos/:id" element={<EditProductPage />} />
+                  <Route
+                    path="productos/editar"
+                    element={<EditProductPage />}
+                  />
+                  <Route
+                    path="productos/editar/:id"
+                    element={<EditProductPage />}
+                  />
                   <Route path="categorias" element={<CategoriesPage />} />
                   <Route
-                    path="categorias/:id"
+                    path="categorias/editar"
+                    element={<EditCategoriesPage />}
+                  />
+                  <Route
+                    path="categorias/editar/:id"
                     element={<EditCategoriesPage />}
                   />
                   <Route path="horario" element={<SchedulePage />} />
@@ -53,7 +64,7 @@ function App() {
                   <Route path="ordenes" element={<OrdersPage />} />
                   <Route path="wompi" element={<WompiPage />} />
                   <Route path="clientes" element={<ClientsPage />} />
-                  <Route path="pedidos" element={<OrdersConfigPage />} />
+                  <Route path="preferencias" element={<PreferencesPage />} />
                   <Route path="usuarios" element={<UsersPage />} />
                   <Route path="api" element={<ApiPage />} />
                 </Route>

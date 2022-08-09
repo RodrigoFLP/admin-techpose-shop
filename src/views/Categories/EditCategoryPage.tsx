@@ -1,36 +1,35 @@
 import { ActionIcon } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft } from "tabler-icons-react";
 import LayourInnerDashboard from "../../components/layouts/LayoutInnerDashboard";
 import Loading from "../../components/Loading";
-import { useGetOneCategoryQuery } from "../../services/categories";
+import { useGetOneCategoryMutation } from "../../services/categories";
 import CategoryForm from "./CategoryForm";
 
 const EditCategoriesPage = () => {
   const location = useLocation();
-  const id = location.pathname.split("/")[3];
+  const id = location.pathname.split("/")[4];
 
-  const [image, setImage] = useState<null | File>(null);
+  const [getCategory, result] = useGetOneCategoryMutation();
 
-  const {
-    data: category,
-    isLoading,
-    isUninitialized,
-    isError,
-  } = useGetOneCategoryQuery(id);
+  useEffect(() => {
+    if (id) {
+      getCategory(id).unwrap();
+    }
+  }, []);
 
-  if (isLoading || isUninitialized) {
+  if ((result.isLoading || result.isUninitialized) && !!id) {
     return <Loading />;
   }
 
-  if (isError) {
+  if (result.isError) {
     return <div>"Error"</div>;
   }
 
   return (
     <LayourInnerDashboard
-      title={`Categoría ${category.id}`}
+      title={result.data ? ` Categoría ${result.data.id}` : "Nueva categoría"}
       leftAction={
         <Link to="/dashboard/categorias">
           <ActionIcon>
@@ -39,7 +38,7 @@ const EditCategoriesPage = () => {
         </Link>
       }
     >
-      <CategoryForm category={category} />
+      <CategoryForm category={id ? result.data : undefined} />
     </LayourInnerDashboard>
   );
 };
