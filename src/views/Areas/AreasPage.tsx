@@ -37,7 +37,10 @@ import {
   useGetAllQuery,
 } from "../../services/areas";
 import Loading from "../../components/Loading";
-import { useGetStoreQuery, useUpdateStoreMutation } from "../../services/store";
+import {
+  useGetStoreQuery,
+  useUpdateCoordinatesMutation,
+} from "../../services/store";
 
 interface MarkerProps {
   areas: Area[] | null;
@@ -132,7 +135,7 @@ const AreasPage = () => {
 
   const [removeArea, removeResult] = useDeleteMutation();
 
-  const [updateStore, updateStoreResult] = useUpdateStoreMutation();
+  const [updateStore, updateStoreResult] = useUpdateCoordinatesMutation();
 
   const {
     data: areasResponse,

@@ -138,15 +138,16 @@ const TagGroupsForm = ({ tagGroup, portions, onSave, onDelete }: Props) => {
             opened={openedTagPop === -1}
             onClose={() => setOpenedTagPop(null)}
             position="top"
-            placement="end"
             withArrow
-            target={
+          >
+            <Popover.Target>
               <Button size="xs" onClick={() => setOpenedTagPop(-1)}>
                 Añadir
               </Button>
-            }
-          >
-            <TagForm name={form.values.name} onSave={addTag} />
+            </Popover.Target>
+            <Popover.Dropdown>
+              <TagForm name={form.values.name} onSave={addTag} />
+            </Popover.Dropdown>
           </Popover>
         </Group>
         <Stack>
@@ -156,23 +157,24 @@ const TagGroupsForm = ({ tagGroup, portions, onSave, onDelete }: Props) => {
               opened={openedTagPop === index}
               onClose={() => setOpenedTagPop(null)}
               position="top"
-              placement="start"
               withArrow
-              target={
+            >
+              <Popover.Target>
                 <TagCard
                   onClick={() => setOpenedTagPop(index)}
                   value={tag.value}
                   price={tag.price}
                   ratio={tag.ratio}
                 />
-              }
-            >
-              <TagForm
-                {...tag}
-                name={form.values.name}
-                onSave={updateTag}
-                onDelete={deleteTag}
-              />
+              </Popover.Target>
+              <Popover.Dropdown>
+                <TagForm
+                  {...tag}
+                  name={form.values.name}
+                  onSave={updateTag}
+                  onDelete={deleteTag}
+                />
+              </Popover.Dropdown>
             </Popover>
           ))}
         </Stack>

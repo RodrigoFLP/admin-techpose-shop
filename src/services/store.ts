@@ -15,7 +15,18 @@ export const shop = createApi({
         credentials: "include",
       }),
     }),
-    updateStore: builder.mutation<Store, PreferenceFormValues>({
+    updateStore: builder.mutation<
+      Store,
+      PreferenceFormValues & { lat?: number; lon?: number }
+    >({
+      query: (newStore) => ({
+        url: "",
+        method: "PATCH",
+        body: newStore,
+        credentials: "include",
+      }),
+    }),
+    updateCoordinates: builder.mutation<Store, { lat: number; lon: number }>({
       query: (newStore) => ({
         url: "",
         method: "PATCH",
@@ -26,4 +37,8 @@ export const shop = createApi({
   }),
 });
 
-export const { useGetStoreQuery, useUpdateStoreMutation } = shop;
+export const {
+  useGetStoreQuery,
+  useUpdateStoreMutation,
+  useUpdateCoordinatesMutation,
+} = shop;
