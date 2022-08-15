@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import { Check, X } from "tabler-icons-react";
 import { Portion, Product, TagGroup } from "../interfaces";
 import { useGetAllCategoriesQuery } from "../services/categories";
+import { useGetAllTagsQuery } from "../services/tags";
+
 import {
   useAddProductMutation,
   useGetMutation,
@@ -17,6 +19,7 @@ interface initialValues {
   title: string;
   description: string;
   category: string;
+  tag: string;
   price: number;
 }
 
@@ -40,7 +43,12 @@ const useEditProduct = () => {
         id: result.id,
         title: result.name,
         description: result.description,
-        category: `${result.categories[0].id}`,
+        category: `${
+          result.categories.length > 0 ? result.categories[0].id : []
+        }`,
+        tagCategory: `${
+          result.tagsCategories.length > 0 ? result.tagsCategories[0].id : ""
+        }`,
         price:
           typeof result.price !== "number"
             ? parseFloat(result.price)
@@ -56,6 +64,7 @@ const useEditProduct = () => {
       setProductState({
         id: 0,
         categories: [],
+        tagsCategories: [],
         description: "",
         image: null,
         name: "",
@@ -71,6 +80,7 @@ const useEditProduct = () => {
         title: "",
         description: "",
         category: "",
+        tagCategory: "",
         price: 0,
       });
     } catch (e) {
@@ -94,6 +104,14 @@ const useEditProduct = () => {
     isError: isCategoriesError,
     isUninitialized: isCategoriesUnintialized,
   } = useGetAllCategoriesQuery();
+
+  const {
+    data: tags,
+    isSuccess: isTagsSuccess,
+    isLoading: isTagsLoading,
+    isError: isTagsError,
+    isUninitialized: isTagsUnintialized,
+  } = useGetAllTagsQuery();
 
   const handleSubmit = async () => {
     console.log(productState);
@@ -141,6 +159,9 @@ const useEditProduct = () => {
           id: productState.id,
           name: form.values.title,
           categoriesId: [parseInt(form.values.category)],
+          tagsCategoriesId: form.values.tagCategory
+            ? [parseInt(form.values.tagCategory)]
+            : [],
           description: form.values.description,
           image: imageSrc ? imageSrc : productState.image,
           price:
@@ -153,11 +174,19 @@ const useEditProduct = () => {
         }).unwrap();
       }
 
+      console.log(productState.id, "idddsa");
+
       if (!id) {
         await addProduct({
-          id: productState.id,
+          id:
+            typeof form.values.id !== "number"
+              ? parseInt(form.values.id)
+              : form.values.id,
           name: form.values.title,
           categoriesId: [parseInt(form.values.category)],
+          tagsCategoriesId: form.values.tagCategory
+            ? [parseInt(form.values.tagCategory)]
+            : [],
           description: form.values.description,
           image: imageSrc ? imageSrc : productState.image,
           price:
@@ -196,6 +225,7 @@ const useEditProduct = () => {
       title: "",
       description: "",
       category: "",
+      tagCategory: "",
       price: 0,
     },
   });
@@ -313,16 +343,19 @@ const useEditProduct = () => {
     (productResult.isLoading ||
       productResult.isUninitialized ||
       isCategoriesLoading ||
-      isCategoriesUnintialized) &&
+      isCategoriesUnintialized ||
+      isTagsLoading ||
+      isTagsUnintialized) &&
     id;
 
-  const isError = productResult.isError || isCategoriesError;
+  const isError = productResult.isError || isCategoriesError || isTagsError;
 
   const isNewProduct = !!id;
 
   return [
     productState,
     categories,
+    tags,
     id,
     handleSubmit,
     image,

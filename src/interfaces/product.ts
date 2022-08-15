@@ -10,11 +10,16 @@ export interface Product {
   categories: Category[];
   createdAt: string;
   updatedAt: string;
+  tagsCategories: Tag[];
 }
 
 export type ProductMutation = Omit<
-  Product & { price: number; categoriesId: number[] },
-  "createdAt" | "updatedAt" | "categories"
+  Product & {
+    price: number;
+    categoriesId: number[];
+    tagsCategoriesId: number[] | [];
+  },
+  "createdAt" | "updatedAt" | "categories" | "tagsCategories"
 >;
 
 export interface Category {

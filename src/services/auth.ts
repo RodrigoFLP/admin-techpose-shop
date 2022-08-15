@@ -30,7 +30,7 @@ export const auth = createApi({
     }),
     check: builder.mutation<any, void>({
       query: () => ({
-        url: "auth/check",
+        url: "auth/check-admin",
         method: "GET",
         credentials: "include",
       }),

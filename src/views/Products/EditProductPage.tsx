@@ -32,6 +32,7 @@ const EditProductPage = () => {
   const [
     productState,
     categories,
+    tags,
     id,
     handleSubmit,
     image,
@@ -78,7 +79,7 @@ const EditProductPage = () => {
         </Link>
       }
     >
-      {productState && categories && (
+      {productState && categories && tags && (
         <form>
           <Grid columns={24} gutter="xl">
             <Grid.Col span={largeScreen ? 12 : 24}>
@@ -122,6 +123,20 @@ const EditProductPage = () => {
                     label: category.name,
                   })),
                 ]}
+              />
+
+              <Select
+                {...form.getInputProps("tagCategory")}
+                mt={"xs"}
+                label="Tag"
+                placeholder="Elige una"
+                data={[
+                  ...tags.map((tag) => ({
+                    value: `${tag.id}`,
+                    label: tag.name,
+                  })),
+                ]}
+                clearable
               />
               <Stack>
                 <Text mt="md" weight="bold" size="sm">

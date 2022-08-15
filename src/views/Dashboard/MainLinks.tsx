@@ -14,6 +14,7 @@ import {
   Settings,
   InfoCircle,
   Home,
+  Tag,
 } from "tabler-icons-react";
 import {
   ThemeIcon,
@@ -106,12 +107,12 @@ const data: Data[] = [
 ];
 
 const configData: Data[] = [
-  {
-    icon: <InfoCircle size={16} />,
-    color: "lime",
-    label: "Página",
-    path: "/dashboard/pagina",
-  },
+  // {
+  //   icon: <InfoCircle size={16} />,
+  //   color: "lime",
+  //   label: "Página",
+  //   path: "/dashboard/pagina",
+  // },
   {
     icon: <ShoppingCart size={16} />,
     color: "violet",
@@ -123,6 +124,12 @@ const configData: Data[] = [
     color: "grape",
     label: "Categorías",
     path: "/dashboard/categorias",
+  },
+  {
+    icon: <Tag size={16} />,
+    color: "red",
+    label: "Tags",
+    path: "/dashboard/tags",
   },
   {
     icon: <Clock size={16} />,

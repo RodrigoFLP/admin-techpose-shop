@@ -7,6 +7,7 @@ export const products = createApi({
     baseUrl: `${import.meta.env.VITE_API_URL}/products`,
     credentials: "include",
   }),
+  tagTypes: ["Product", "Error"],
   endpoints: (builder) => ({
     getOne: builder.query<Product, number | string>({
       query: (id) => ({
@@ -28,6 +29,7 @@ export const products = createApi({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["Product"],
     }),
     updateProduct: builder.mutation<Product, ProductMutation>({
       query: (product) => ({
@@ -36,6 +38,7 @@ export const products = createApi({
         credentials: "include",
         body: product,
       }),
+      invalidatesTags: ["Product"],
     }),
     addProduct: builder.mutation<Product, ProductMutation>({
       query: (product) => ({
@@ -44,6 +47,7 @@ export const products = createApi({
         credentials: "include",
         body: product,
       }),
+      invalidatesTags: ["Product"],
     }),
     removeProduct: builder.mutation<Product, number | string>({
       query: (id) => ({
@@ -51,6 +55,7 @@ export const products = createApi({
         method: "DELETE",
         credentials: "include",
       }),
+      invalidatesTags: ["Product"],
     }),
   }),
 });

@@ -7,6 +7,7 @@ export const categories = createApi({
     baseUrl: `${import.meta.env.VITE_API_URL}/categories`,
     credentials: "include",
   }),
+  tagTypes: ["Category", "Error"],
   endpoints: (builder) => ({
     getOneCategory: builder.mutation<Category, number | string>({
       query: (id) => ({
@@ -21,6 +22,7 @@ export const categories = createApi({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["Category"],
     }),
     updateCategory: builder.mutation<Category, Category>({
       query: (product) => ({
@@ -29,6 +31,7 @@ export const categories = createApi({
         credentials: "include",
         body: { ...product, id: undefined },
       }),
+      invalidatesTags: ["Category"],
     }),
     addCategory: builder.mutation<Category, Omit<Category, "id">>({
       query: (product) => ({
@@ -37,6 +40,7 @@ export const categories = createApi({
         credentials: "include",
         body: { ...product },
       }),
+      invalidatesTags: ["Category"],
     }),
     removeCategory: builder.mutation<Category, number | string>({
       query: (id) => ({
@@ -44,6 +48,7 @@ export const categories = createApi({
         method: "DELETE",
         credentials: "include",
       }),
+      invalidatesTags: ["Category"],
     }),
   }),
 });

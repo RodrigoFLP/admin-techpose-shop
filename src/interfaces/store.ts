@@ -2,6 +2,7 @@
 
 import { Area } from "./area";
 import { Schedule } from "./schedule";
+import { Tag } from "./tag";
 
 type AreaStore = Omit<Area, "coordinates">;
 
@@ -28,10 +29,14 @@ export interface Store {
   lat: number;
   lon: number;
   deliveryCost: number | null | string;
+  deliveryMin: number | null | string;
+  defaultHomeTagCategory: Tag | null;
   whatsapp: string | null;
   schedules: Schedule[];
   altSchedules: any[];
   areas: AreaStore[];
+  headerImage: string | null;
+  headerUrl: string | null;
 }
 
 export type PreferenceFormValues = Omit<
@@ -45,3 +50,8 @@ export type PreferenceFormValues = Omit<
   | "altSchedules"
   | "productException"
 >;
+
+export type StoreMutation = Omit<
+  PreferenceFormValues,
+  "defaultHomeTagCategory"
+> & { defaultHomeTagCategoryId: number };

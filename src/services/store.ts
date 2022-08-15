@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { PreferenceFormValues, Store } from "../interfaces/store";
+import {
+  PreferenceFormValues,
+  Store,
+  StoreMutation,
+} from "../interfaces/store";
 
 export const shop = createApi({
   reducerPath: "shop",
@@ -17,7 +21,7 @@ export const shop = createApi({
     }),
     updateStore: builder.mutation<
       Store,
-      PreferenceFormValues & { lat?: number; lon?: number }
+      StoreMutation & { lat?: number; lon?: number }
     >({
       query: (newStore) => ({
         url: "",

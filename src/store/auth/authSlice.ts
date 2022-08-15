@@ -31,7 +31,7 @@ const initialState: authState = {
 export const fetchAuth = createAsyncThunk(
   "auth/fetchAuth",
   async (thunkAPI) => {
-    const response = await techposApi.get("/auth/check");
+    const response = await techposApi.get("/auth/check-admin");
     return response.data;
   }
 );
@@ -72,6 +72,7 @@ export const { setCredentials, startFetching } = authSlice.actions;
 
 export const selectIsIdle = (state: RootState) => state.auth.isIdle;
 export const selectIsLoading = (state: RootState) => state.auth.isLoading;
+export const selectRole = (state: RootState) => state.auth.user.role;
 export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
 export const selectIsError = (state: RootState) => state.auth.isError;
 export const selectUser = (state: RootState) => state.auth.user;

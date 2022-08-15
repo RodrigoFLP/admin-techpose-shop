@@ -12,49 +12,44 @@ import { Link } from "react-router-dom";
 import { Check, Edit, Plus, Trash, X } from "tabler-icons-react";
 import LayourInnerDashboard from "../../components/layouts/LayoutInnerDashboard";
 import Loading from "../../components/Loading";
-import { Category } from "../../interfaces/category";
-import {
-  useGetAllCategoriesQuery,
-  useRemoveCategoryMutation,
-} from "../../services/categories";
+import { Tag } from "../../interfaces/tag";
+import { useGetAllTagsQuery, useRemoveTagMutation } from "../../services/tags";
 
-const CategoriesPage = () => {
+const TagPage = () => {
   const {
-    data: categories,
+    data: tags,
     isLoading,
     isUninitialized,
     isError,
-  } = useGetAllCategoriesQuery();
+  } = useGetAllTagsQuery();
 
-  const [categoryToRemove, setCategoryToRemove] = useState<Category | null>(
-    null
-  );
+  const [tagToRemove, setTagToRemove] = useState<Tag | null>(null);
 
-  const [removeCategory, removed] = useRemoveCategoryMutation();
+  const [removeTag, removed] = useRemoveTagMutation();
 
-  const handleRemoveCategory = async (id: number) => {
+  const handleRemoveTag = async (id: number) => {
     try {
       showNotification({
-        id: "delete-category",
+        id: "delete-tag",
         loading: true,
         title: "Eliminando categoría",
         message: "Se está eliminando categoría",
         autoClose: false,
         disallowClose: true,
       });
-      await removeCategory(id).unwrap();
+      await removeTag(id).unwrap();
       updateNotification({
-        id: "delete-category",
+        id: "delete-tag",
         color: "teal",
         title: "Listo",
         message: "Categoria se ha elinado con éxito",
         icon: <Check />,
         autoClose: 2000,
       });
-      setCategoryToRemove(null);
+      setTagToRemove(null);
     } catch (err) {
       updateNotification({
-        id: "delete-category",
+        id: "delete-tag",
         color: "red",
         title: "Error",
         message: "No se ha podido eliminar la categoria",
@@ -72,21 +67,21 @@ const CategoriesPage = () => {
     return <div>"Error"</div>;
   }
 
-  const rows = categories.map((category) => (
-    <tr key={category.id}>
-      <td>{category.id}</td>
-      <td>{category.name}</td>
-      <td>{category.description}</td>
+  const rows = tags.map((tag) => (
+    <tr key={tag.id}>
+      <td>{tag.id}</td>
+      <td>{tag.name}</td>
+      <td>{tag.description}</td>
       <td>{true ? "Sí" : "No"}</td>
       <td>
-        <Link to={`/dashboard/categorias/editar/${category.id}`}>
+        <Link to={`/dashboard/tags/editar/${tag.id}`}>
           <ActionIcon>
             <Edit size={16} />
           </ActionIcon>
         </Link>
       </td>
       <td>
-        <ActionIcon onClick={() => setCategoryToRemove(category)}>
+        <ActionIcon onClick={() => setTagToRemove(tag)}>
           <Trash size={16} />
         </ActionIcon>
       </td>
@@ -95,9 +90,9 @@ const CategoriesPage = () => {
 
   return (
     <LayourInnerDashboard
-      title="Categorías"
+      title="Tags"
       rightAction={
-        <Link to={`/dashboard/categorias/editar`}>
+        <Link to={`/dashboard/tags/editar`}>
           <Button leftIcon={<Plus size={16} />}>Agregar</Button>
         </Link>
       }
@@ -121,16 +116,13 @@ const CategoriesPage = () => {
           </ScrollArea>
         </Card.Section>
       </Card>
-      {categoryToRemove && (
+      {tagToRemove && (
         <Modal
-          opened={!!categoryToRemove}
-          onClose={() => setCategoryToRemove(null)}
-          title={`¿Quieres eliminar ${categoryToRemove.name}?`}
+          opened={!!tagToRemove}
+          onClose={() => setTagToRemove(null)}
+          title={`¿Quieres eliminar ${tagToRemove.name}?`}
         >
-          <Button
-            color="red"
-            onClick={() => handleRemoveCategory(categoryToRemove.id)}
-          >
+          <Button color="red" onClick={() => handleRemoveTag(tagToRemove.id)}>
             Eliminar
           </Button>
         </Modal>
@@ -139,4 +131,4 @@ const CategoriesPage = () => {
   );
 };
 
-export default CategoriesPage;
+export default TagPage;

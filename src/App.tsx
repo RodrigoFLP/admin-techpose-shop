@@ -22,6 +22,8 @@ import { store } from "./store/store";
 import ProtectedRoute from "./ProtectedRoute";
 import EditCategoriesPage from "./views/Categories/EditCategoryPage";
 import PreferencesPage from "./views/Preferences/PreferencesPage";
+import TagPage from "./views/Tags/TagsPage";
+import EditTagsPage from "./views/Tags/EditTagPage";
 
 function App() {
   return (
@@ -59,6 +61,9 @@ function App() {
                     path="categorias/editar/:id"
                     element={<EditCategoriesPage />}
                   />
+                  <Route path="tags" element={<TagPage />} />
+                  <Route path="tags/editar" element={<EditTagsPage />} />
+                  <Route path="tags/editar/:id" element={<EditTagsPage />} />
                   <Route path="horario" element={<SchedulePage />} />
                   <Route path="areas" element={<AreasPage />} />
                   <Route path="ordenes" element={<OrdersPage />} />

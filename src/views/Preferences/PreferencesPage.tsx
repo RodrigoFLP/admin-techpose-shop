@@ -4,8 +4,9 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import { Check, FileCheck, X } from "tabler-icons-react";
 import LayourInnerDashboard from "../../components/layouts/LayoutInnerDashboard";
 import Loading from "../../components/Loading";
-import { PreferenceFormValues } from "../../interfaces/store";
+import { PreferenceFormValues, StoreMutation } from "../../interfaces/store";
 import { useGetStoreQuery, useUpdateStoreMutation } from "../../services/store";
+import { useGetAllTagsQuery } from "../../services/tags";
 import PreferencesForm from "./PreferencesForm";
 
 const PreferencesPage = () => {
@@ -17,9 +18,17 @@ const PreferencesPage = () => {
     isSuccess,
   } = useGetStoreQuery();
 
+  const {
+    data: tags,
+    isSuccess: isTagsSuccess,
+    isLoading: isTagsLoading,
+    isError: isTagsError,
+    isUninitialized: isTagsUnintialized,
+  } = useGetAllTagsQuery();
+
   const [update, result] = useUpdateStoreMutation();
 
-  const updatePreferences = async (values: PreferenceFormValues) => {
+  const updatePreferences = async (values: StoreMutation) => {
     try {
       showNotification({
         id: "load-data",
@@ -32,6 +41,7 @@ const PreferencesPage = () => {
       await update({
         ...values,
         deliveryCost: parseFloat(values.deliveryCost as string),
+        deliveryMin: parseFloat(values.deliveryMin as string),
       }).unwrap();
 
       updateNotification({
@@ -55,13 +65,14 @@ const PreferencesPage = () => {
     }
   };
 
-  if (isLoading || isUninitialized) return <Loading />;
+  if (isLoading || isUninitialized || isTagsLoading || isTagsUnintialized)
+    return <Loading />;
 
-  if (isError) return <div>Hay un error</div>;
+  if (isError || isTagsError) return <div>Hay un error</div>;
 
   return (
     <LayourInnerDashboard title="Preferencias">
-      <PreferencesForm {...store} onSave={updatePreferences} />
+      <PreferencesForm {...store} onSave={updatePreferences} tags={tags} />
     </LayourInnerDashboard>
   );
 };

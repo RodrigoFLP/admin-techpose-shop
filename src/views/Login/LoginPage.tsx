@@ -7,8 +7,9 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import { Navigate, useNavigate } from "react-router-dom";
-import { At, Lock } from "tabler-icons-react";
+import { At, Check, Lock, X } from "tabler-icons-react";
 import { useLoginMutation } from "../../services/auth";
 
 const LoginPage = () => {
@@ -28,11 +29,38 @@ const LoginPage = () => {
 
   const handleSubmit = async (values: typeof form.values) => {
     try {
-      await login({ username: values.email, password: values.password });
-      console.log("se loguea");
+      showNotification({
+        id: "login",
+        loading: true,
+        title: "Ingresando",
+        message: "Se está intentando iniciar sesión",
+        autoClose: false,
+        disallowClose: true,
+      });
+      await login({
+        username: values.email,
+        password: values.password,
+      }).unwrap();
+      updateNotification({
+        id: "login",
+        color: "teal",
+        title: "Listo",
+        message: "Se ha iniciado la sesión con éxito",
+        icon: <Check />,
+        autoClose: 2000,
+      });
       navigate("/", { replace: true });
       navigate(0);
-    } catch (err) {}
+    } catch (err) {
+      updateNotification({
+        id: "login",
+        color: "red",
+        title: "Error",
+        message: "No se ha podido iniciar sesión, revisa los datos",
+        icon: <X />,
+        autoClose: 2000,
+      });
+    }
   };
 
   return (
