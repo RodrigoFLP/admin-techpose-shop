@@ -32,9 +32,9 @@ const ProductsPage = () => {
     isSuccess,
   } = useGetAllQuery();
 
-  const [productToRemove, setProductToRemove] = useState<Product | null>(null);
-
   const [removeProduct, removed] = useRemoveProductMutation();
+
+  const [productToRemove, setProductToRemove] = useState<Product | null>(null);
 
   const handleRemoveProduct = async (id: number) => {
     try {

@@ -8,8 +8,10 @@ import {
   ActionIcon,
   Menu,
   Button,
+  Modal,
 } from "@mantine/core";
 import { showNotification, updateNotification } from "@mantine/notifications";
+import { useState } from "react";
 
 import { Clock, Dots, DotsVertical, Refresh } from "tabler-icons-react";
 import { ActiveOrder, StatusType } from "../../interfaces/order";
@@ -21,6 +23,7 @@ import priceToFixed from "../../utils/helpers/priceToFixed";
 
 interface Props {
   order: ActiveOrder;
+  onDelete: (id: string) => void;
 }
 
 const StatusMenu = ({ id }: { id: number }) => {
@@ -78,7 +81,9 @@ const StatusMenu = ({ id }: { id: number }) => {
   );
 };
 
-export const OrderCard = ({ order }: Props) => {
+export const OrderCard = ({ order, onDelete }: Props) => {
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
+
   return (
     <Card shadow="xs">
       <Card.Section>
@@ -94,6 +99,7 @@ export const OrderCard = ({ order }: Props) => {
           <Text size="sm">{getStatus(order.status)}</Text>
           <ActionIcon
             variant="transparent"
+            onClick={() => setShowRemoveModal(true)}
             sx={(theme) => ({ position: "absolute", top: "0", right: "0" })}
           >
             <DotsVertical color="white" size={18} />
@@ -138,6 +144,23 @@ export const OrderCard = ({ order }: Props) => {
       {/* <Text size={"xs"}>{order.customer.phoneNumber}</Text> */}
 
       <StatusMenu id={order.status.id} />
+      {showRemoveModal && (
+        <Modal
+          opened={showRemoveModal}
+          onClose={() => setShowRemoveModal(false)}
+          title={`¿Quieres eliminar ${order.id}?`}
+        >
+          <Button
+            color="red"
+            onClick={() => {
+              onDelete(order.id);
+              setShowRemoveModal(false);
+            }}
+          >
+            Eliminar
+          </Button>
+        </Modal>
+      )}
     </Card>
   );
 };

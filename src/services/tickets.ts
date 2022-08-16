@@ -24,6 +24,7 @@ export const tickets = createApi({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["ActiveOrders"],
     }),
     updateTicketStatus: builder.mutation<
       number,
@@ -53,6 +54,8 @@ export const tickets = createApi({
         credentials: "include",
         body: product,
       }),
+      invalidatesTags: (result, error, arg) =>
+        result ? ["ActiveOrders"] : ["Error"],
     }),
     removeTicket: builder.mutation<Ticket, number | string>({
       query: (id) => ({
@@ -60,6 +63,8 @@ export const tickets = createApi({
         method: "DELETE",
         credentials: "include",
       }),
+      invalidatesTags: (result, error, arg) =>
+        result ? ["ActiveOrders"] : ["Error"],
     }),
   }),
 });
