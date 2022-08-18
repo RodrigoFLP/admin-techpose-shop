@@ -10,11 +10,14 @@ import {
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store";
 import { useLogoutMutation } from "../../services/auth";
+import { useNavigate } from "react-router-dom";
 
 export function User() {
   const theme = useMantineTheme();
 
   const user = useSelector(selectUser);
+
+  const navigate = useNavigate();
 
   const [logout, logoutResponse] = useLogoutMutation();
 
@@ -72,7 +75,15 @@ export function User() {
 
       <Menu.Dropdown>
         <Menu.Label>Opciones</Menu.Label>
-        <Menu.Item icon={<Logout size={14} />} onClick={() => logout()}>
+        <Menu.Item
+          icon={<Logout size={14} />}
+          onClick={() =>
+            logout().then(() => {
+              navigate("/", { replace: true });
+              navigate(0);
+            })
+          }
+        >
           Cerrar sesión
         </Menu.Item>
       </Menu.Dropdown>

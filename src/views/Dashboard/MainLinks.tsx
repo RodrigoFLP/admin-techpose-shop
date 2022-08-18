@@ -1,7 +1,4 @@
 import {
-  GitPullRequest,
-  AlertCircle,
-  Motorbike,
   ShoppingCart,
   Map2,
   Clock,
@@ -10,9 +7,7 @@ import {
   Bell,
   Api,
   Users,
-  Icon,
   Settings,
-  InfoCircle,
   Home,
   Tag,
 } from "tabler-icons-react";
